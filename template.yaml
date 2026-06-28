@@ -1,0 +1,130 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: FieldQuote – Contractor Estimating Tool
+
+Globals:
+  Function:
+    Timeout: 60
+    Runtime: python3.12
+    Architectures: [arm64]
+
+Resources:
+
+  # ── DynamoDB ─────────────────────────────────────────────────────────────────
+  ProjectsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub 'fieldquote-projects-${AWS::StackName}'
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: projectId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: projectId
+          KeyType: HASH
+
+  # ── S3 static site ────────────────────────────────────────────────────────────
+  FrontendBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'fieldquote-${AWS::AccountId}-${AWS::Region}'
+      WebsiteConfiguration:
+        IndexDocument: index.html
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+
+  FrontendBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref FrontendBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal: '*'
+            Action: 's3:GetObject'
+            Resource: !Sub '${FrontendBucket.Arn}/*'
+
+  # ── API Gateway ───────────────────────────────────────────────────────────────
+  HttpApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      CorsConfiguration:
+        AllowOrigins: ['*']
+        AllowMethods: [GET, POST, PUT, DELETE, OPTIONS]
+        AllowHeaders: [Content-Type]
+
+  # ── Lambda ────────────────────────────────────────────────────────────────────
+  ApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: fieldquote-api
+      Handler: handler.lambda_handler
+      CodeUri: lambda/
+      MemorySize: 256
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ProjectsTable
+      Environment:
+        Variables:
+          ANTHROPIC_API_KEY: placeholder
+          PROJECTS_TABLE: !Ref ProjectsTable
+      Events:
+        ReadDrawing:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /read-drawing
+            Method: POST
+        Estimate:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /estimate
+            Method: POST
+        ListProjects:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /projects
+            Method: GET
+        CreateProject:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /projects
+            Method: POST
+        GetProject:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /projects/{id}
+            Method: GET
+        SaveDrawing:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /projects/{id}/drawing
+            Method: POST
+        SaveEstimate:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /projects/{id}/estimate
+            Method: POST
+
+Outputs:
+  ApiUrl:
+    Description: API Gateway URL
+    Value: !Sub 'https://${HttpApi}.execute-api.${AWS::Region}.amazonaws.com'
+
+  FrontendUrl:
+    Description: App URL
+    Value: !GetAtt FrontendBucket.WebsiteURL
+
+  BucketName:
+    Description: S3 bucket name
+    Value: !Ref FrontendBucket
