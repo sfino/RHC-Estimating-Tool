@@ -70,6 +70,7 @@ Resources:
             TableName: !Ref ProjectsTable
       Environment:
         Variables:
+          # Set the real key via AWS Console or `aws lambda update-function-configuration` — never commit a real key here
           ANTHROPIC_API_KEY: placeholder
           PROJECTS_TABLE: !Ref ProjectsTable
       Events:

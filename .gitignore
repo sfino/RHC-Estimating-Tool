@@ -1,0 +1,20 @@
+# Environment / secrets — never commit real API keys
+.env
+.env.*
+*.env
+secrets.json
+secrets.toml
+
+# AWS SAM build artifacts
+.aws-sam/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# OS
+.DS_Store
+Thumbs.db
