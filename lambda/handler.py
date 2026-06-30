@@ -2,6 +2,7 @@ import json
 import os
 import uuid
 import decimal
+import base64
 import urllib.request
 import urllib.error
 from datetime import datetime, timezone
@@ -9,10 +10,15 @@ from datetime import datetime, timezone
 import boto3
 
 dynamodb = boto3.resource("dynamodb")
+s3 = boto3.client("s3")
 
 
 def _table():
     return dynamodb.Table(os.environ["PROJECTS_TABLE"])
+
+
+def _drawings_bucket():
+    return os.environ["DRAWINGS_BUCKET"]
 
 
 # ── Router ────────────────────────────────────────────────────────────────────
@@ -96,11 +102,50 @@ def _get_project(project_id):
     item   = result.get("Item")
     if not item:
         raise Exception("Project not found")
-    return _from_dynamo(item)
+    project = _from_dynamo(item)
+    for drawing in project.get("drawings", []):
+        if drawing.get("fileKey"):
+            drawing["fileUrl"] = s3.generate_presigned_url(
+                "get_object",
+                Params={"Bucket": _drawings_bucket(), "Key": drawing["fileKey"]},
+                ExpiresIn=3600,
+            )
+    return project
 
 
 def _save_drawing(project_id, drawing):
-    entry = {**drawing, "id": str(uuid.uuid4()), "savedAt": _now()}
+    drawing = dict(drawing)
+    file_data = drawing.pop("fileData", None)
+    media_type = drawing.pop("mediaType", None)
+    entry_id = str(uuid.uuid4())
+    entry = {**drawing, "id": entry_id, "savedAt": _now()}
+
+    if file_data:
+        extensions = {
+            "application/pdf": "pdf",
+            "image/jpeg": "jpg",
+            "image/png": "png",
+            "image/webp": "webp",
+            "image/heic": "heic",
+            "image/heif": "heif",
+        }
+        if media_type not in extensions:
+            raise Exception("Unsupported drawing file type")
+        try:
+            contents = base64.b64decode(file_data, validate=True)
+        except Exception:
+            raise Exception("Invalid drawing file data")
+        key = f"projects/{project_id}/drawings/{entry_id}.{extensions[media_type]}"
+        s3.put_object(
+            Bucket=_drawings_bucket(),
+            Key=key,
+            Body=contents,
+            ContentType=media_type,
+            ContentDisposition="inline",
+        )
+        entry["fileKey"] = key
+        entry["mediaType"] = media_type
+
     _table().update_item(
         Key={"projectId": project_id},
         UpdateExpression="SET drawings = list_append(if_not_exists(drawings, :empty), :d)",
@@ -181,7 +226,10 @@ def _read_drawing(api_key, body):
         media_block, {"type": "text", "text": prompt}
     ]}], max_tokens=2000)
 
-    return _parse_json(text)
+    result = _parse_json(text)
+    if not isinstance(result, dict) or not isinstance(result.get("items"), list):
+        raise Exception("Drawing analysis returned an invalid material list. Please retry.")
+    return result
 
 
 def _estimate(api_key, body):

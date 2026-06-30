@@ -18,35 +18,48 @@
   const API_URL = 'https://3htfajhzp4.execute-api.us-east-1.amazonaws.com';
 
   const SAMPLE_JOBS = [
-    { id:1,  name:"Maple St Kitchen Remodel",  type:"Kitchen Remodel",   sqft:280,  estHours:120, actHours:134, estMaterials:18400, actMaterials:19100, status:"Complete", date:"2024-03-15", finishLevel:"Mid-Range",  demoScope:"Partial",  layoutChange:false, homeAge:"Modern (post-1980)", cabinetType:"Semi-Custom" },
-    { id:2,  name:"Birchwood Bath Addition",    type:"Bathroom Addition", sqft:95,   estHours:68,  actHours:71,  estMaterials:9200,  actMaterials:9650,  status:"Complete", date:"2024-04-22", finishLevel:"Mid-Range",  demoScope:"Partial",  layoutChange:false, homeAge:"Modern (post-1980)", cabinetType:null },
-    { id:3,  name:"Cedar Ridge Deck Build",     type:"Deck / Outdoor",   sqft:420,  estHours:88,  actHours:102, estMaterials:11800, actMaterials:13200, status:"Complete", date:"2024-05-08", finishLevel:"Mid-Range",  demoScope:"Cosmetic", layoutChange:false, homeAge:"Modern (post-1980)", cabinetType:null },
-    { id:4,  name:"Elmhurst Kitchen Remodel",   type:"Kitchen Remodel",   sqft:310,  estHours:130, actHours:128, estMaterials:22100, actMaterials:21800, status:"Complete", date:"2024-06-14", finishLevel:"Mid-Range",  demoScope:"Partial",  layoutChange:false, homeAge:"Older (pre-1980)",  cabinetType:"Semi-Custom" },
-    { id:5,  name:"Sycamore Basement Finish",   type:"Basement Finish",   sqft:850,  estHours:190, actHours:224, estMaterials:28500, actMaterials:31200, status:"Complete", date:"2024-07-02", finishLevel:"Mid-Range",  demoScope:"Full Gut", layoutChange:false, homeAge:"Older (pre-1980)",  cabinetType:null },
-    { id:6,  name:"Pineview Bath Remodel",      type:"Bathroom Addition", sqft:75,   estHours:52,  actHours:49,  estMaterials:7400,  actMaterials:7100,  status:"Complete", date:"2024-08-19", finishLevel:"Budget",     demoScope:"Cosmetic", layoutChange:false, homeAge:"Modern (post-1980)", cabinetType:null },
-    { id:7,  name:"Walnut Ave Basement Finish", type:"Basement Finish",   sqft:1100, estHours:240, actHours:258, estMaterials:36200, actMaterials:38900, status:"Complete", date:"2024-09-30", finishLevel:"High-End",   demoScope:"Full Gut", layoutChange:true,  homeAge:"Older (pre-1980)",  cabinetType:null },
-    { id:8,  name:"Oakdale Deck Expansion",     type:"Deck / Outdoor",   sqft:320,  estHours:64,  actHours:69,  estMaterials:8900,  actMaterials:9400,  status:"Complete", date:"2024-10-11", finishLevel:"Budget",     demoScope:"Cosmetic", layoutChange:false, homeAge:"Modern (post-1980)", cabinetType:null },
-    { id:9,  name:"Redwood Kitchen Full Gut",   type:"Kitchen Remodel",   sqft:390,  estHours:160, actHours:181, estMaterials:29800, actMaterials:33100, status:"Complete", date:"2024-11-05", finishLevel:"High-End",   demoScope:"Full Gut", layoutChange:true,  homeAge:"Older (pre-1980)",  cabinetType:"Custom" },
-    { id:10, name:"Highland Basement Rough-In", type:"Basement Finish",   sqft:720,  estHours:155, actHours:162, estMaterials:22400, actMaterials:23100, status:"Complete", date:"2024-12-18", finishLevel:"Budget",     demoScope:"Partial",  layoutChange:false, homeAge:"Modern (post-1980)", cabinetType:null },
-    { id:11, name:"Aspen Ct. Bath Remodel",     type:"Bathroom Addition", sqft:110,  estHours:78,  actHours:84,  estMaterials:12100, actMaterials:13200, status:"Complete", date:"2025-01-14", finishLevel:"High-End",   demoScope:"Full Gut", layoutChange:true,  homeAge:"Older (pre-1980)",  cabinetType:null },
-    { id:12, name:"Sunset Kitchen Refresh",     type:"Kitchen Remodel",   sqft:210,  estHours:95,  actHours:91,  estMaterials:14200, actMaterials:13900, status:"Active",   date:"2025-02-28", finishLevel:"Budget",     demoScope:"Cosmetic", layoutChange:false, homeAge:"Modern (post-1980)", cabinetType:"Stock" },
+    { id:1,  name:"Maple St Kitchen Remodel",  type:"Kitchen Remodel",   sqft:280,  estHours:120, actHours:134, estMaterials:18400, actMaterials:19100, status:"Complete", date:"2024-03-15", finishLevel:"Mid-Range",  demoScope:"Partial",  layoutChange:false, homeAge:"Modern (1981-2000)",          cabinetType:"Semi-Custom", materialStorage:"On-Site",  siteAccess:"Easy" },
+    { id:2,  name:"Birchwood Bath Addition",    type:"Bathroom Addition", sqft:95,   estHours:68,  actHours:71,  estMaterials:9200,  actMaterials:9650,  status:"Complete", date:"2024-04-22", finishLevel:"Mid-Range",  demoScope:"Partial",  layoutChange:false, homeAge:"New Construction (post-2000)", cabinetType:null,          materialStorage:"On-Site",  siteAccess:"Easy" },
+    { id:3,  name:"Cedar Ridge Deck Build",     type:"Deck / Outdoor",   sqft:420,  estHours:88,  actHours:102, estMaterials:11800, actMaterials:13200, status:"Complete", date:"2024-05-08", finishLevel:"Mid-Range",  demoScope:"Cosmetic", layoutChange:false, homeAge:"Modern (1981-2000)",          cabinetType:null,          materialStorage:"On-Site",  siteAccess:"Easy" },
+    { id:4,  name:"Elmhurst Kitchen Remodel",   type:"Kitchen Remodel",   sqft:310,  estHours:130, actHours:128, estMaterials:22100, actMaterials:21800, status:"Complete", date:"2024-06-14", finishLevel:"Mid-Range",  demoScope:"Partial",  layoutChange:false, homeAge:"Mid-Century (1961-1980)",     cabinetType:"Semi-Custom", materialStorage:"Off-Site", siteAccess:"Moderate" },
+    { id:5,  name:"Sycamore Basement Finish",   type:"Basement Finish",   sqft:850,  estHours:190, actHours:224, estMaterials:28500, actMaterials:31200, status:"Complete", date:"2024-07-02", finishLevel:"Mid-Range",  demoScope:"Full Gut", layoutChange:false, homeAge:"Older (1941-1960)",           cabinetType:null,          materialStorage:"On-Site",  siteAccess:"Moderate" },
+    { id:6,  name:"Pineview Bath Remodel",      type:"Bathroom Addition", sqft:75,   estHours:52,  actHours:49,  estMaterials:7400,  actMaterials:7100,  status:"Complete", date:"2024-08-19", finishLevel:"Budget",     demoScope:"Cosmetic", layoutChange:false, homeAge:"Modern (1981-2000)",          cabinetType:null,          materialStorage:"On-Site",  siteAccess:"Easy" },
+    { id:7,  name:"Walnut Ave Basement Finish", type:"Basement Finish",   sqft:1100, estHours:240, actHours:258, estMaterials:36200, actMaterials:38900, status:"Complete", date:"2024-09-30", finishLevel:"High-End",   demoScope:"Full Gut", layoutChange:true,  homeAge:"Older (1941-1960)",           cabinetType:null,          materialStorage:"Off-Site", siteAccess:"Difficult" },
+    { id:8,  name:"Oakdale Deck Expansion",     type:"Deck / Outdoor",   sqft:320,  estHours:64,  actHours:69,  estMaterials:8900,  actMaterials:9400,  status:"Complete", date:"2024-10-11", finishLevel:"Budget",     demoScope:"Cosmetic", layoutChange:false, homeAge:"New Construction (post-2000)", cabinetType:null,          materialStorage:"On-Site",  siteAccess:"Easy" },
+    { id:9,  name:"Redwood Kitchen Full Gut",   type:"Kitchen Remodel",   sqft:390,  estHours:160, actHours:181, estMaterials:29800, actMaterials:33100, status:"Complete", date:"2024-11-05", finishLevel:"High-End",   demoScope:"Full Gut", layoutChange:true,  homeAge:"Mid-Century (1961-1980)",     cabinetType:"Custom",      materialStorage:"Off-Site", siteAccess:"Difficult" },
+    { id:10, name:"Highland Basement Rough-In", type:"Basement Finish",   sqft:720,  estHours:155, actHours:162, estMaterials:22400, actMaterials:23100, status:"Complete", date:"2024-12-18", finishLevel:"Budget",     demoScope:"Partial",  layoutChange:false, homeAge:"Modern (1981-2000)",          cabinetType:null,          materialStorage:"On-Site",  siteAccess:"Moderate" },
+    { id:11, name:"Aspen Ct. Bath Remodel",     type:"Bathroom Addition", sqft:110,  estHours:78,  actHours:84,  estMaterials:12100, actMaterials:13200, status:"Complete", date:"2025-01-14", finishLevel:"High-End",   demoScope:"Full Gut", layoutChange:true,  homeAge:"Older (1941-1960)",           cabinetType:null,          materialStorage:"Off-Site", siteAccess:"Moderate" },
+    { id:12, name:"Sunset Kitchen Refresh",     type:"Kitchen Remodel",   sqft:210,  estHours:95,  actHours:91,  estMaterials:14200, actMaterials:13900, status:"Active",   date:"2025-02-28", finishLevel:"Budget",     demoScope:"Cosmetic", layoutChange:false, homeAge:"New Construction (post-2000)", cabinetType:"Stock",       materialStorage:"On-Site",  siteAccess:"Easy" },
   ];
 
   const JOB_TYPES = ["Kitchen Remodel","Bathroom Addition","Deck / Outdoor","Basement Finish"];
   const UNITS     = ["ea","lf","sf","bag","lb","box","roll","sheet","set"];
 
   const QUALIFIER_OPTIONS = {
-    finishLevel: ["Budget","Mid-Range","High-End"],
-    demoScope:   ["Cosmetic","Partial","Full Gut"],
-    homeAge:     ["Modern (post-1980)","Older (pre-1980)"],
-    cabinetType: ["Stock","Semi-Custom","Custom"],
+    finishLevel:     ["Budget","Mid-Range","High-End"],
+    demoScope:       ["Cosmetic","Partial","Full Gut"],
+    homeAge:         ["New Construction (post-2000)","Modern (1981-2000)","Mid-Century (1961-1980)","Older (1941-1960)","Historic (pre-1941)"],
+    cabinetType:     ["Stock","Semi-Custom","Custom"],
+    materialStorage: ["On-Site","Off-Site"],
+    siteAccess:      ["Easy","Moderate","Difficult"],
   };
   const QUAL_LABELS = {
     finishLevel:"Finish Level", demoScope:"Demo Scope",
     layoutChange:"Layout Change", homeAge:"Home Age", cabinetType:"Cabinet Type",
+    materialStorage:"Material Storage", siteAccess:"Site Access",
   };
 
-  // ── API ─────────────────────────────────────────────────────────────────────
+  const homeAgeShort = a => {
+    if (!a) return null;
+    if (a.startsWith('New'))      return 'New Build';
+    if (a.startsWith('Modern'))   return 'Modern';
+    if (a.startsWith('Mid'))      return 'Mid-Century';
+    if (a.startsWith('Older'))    return 'Pre-1961';
+    if (a.startsWith('Historic')) return 'Historic';
+    return a;
+  };
+
+  // ── API ──────────────────────────────────────────────────────────────────────
   async function api(endpoint, body=null, method=null) {
     const m = method || (body ? 'POST' : 'GET');
     const res = await fetch(API_URL + endpoint, {
@@ -100,8 +113,10 @@
     };
     const softScore = j => {
       let s = 0;
-      if (form.layoutChange !== null && j.layoutChange === form.layoutChange) s++;
-      if (form.homeAge      !== null && j.homeAge      === form.homeAge)      s++;
+      if (form.layoutChange    !== null && j.layoutChange    === form.layoutChange)    s++;
+      if (form.homeAge         !== null && j.homeAge         === form.homeAge)          s++;
+      if (form.materialStorage !== null && j.materialStorage === form.materialStorage)  s++;
+      if (form.siteAccess      !== null && j.siteAccess      === form.siteAccess)       s++;
       if (form.type === 'Kitchen Remodel' && form.cabinetType !== null && j.cabinetType === form.cabinetType) s++;
       return s;
     };
@@ -113,65 +128,69 @@
     return { comps:scored.sort((a,b)=>b._score-a._score), exactCount:exact.length, total:sameType.length, relaxed:true };
   }
 
-  // ── Styles ──────────────────────────────────────────────────────────────────
+  // ── Styles ───────────────────────────────────────────────────────────────────
   const S = {
-    app:      { display:"flex", height:"100vh", fontFamily:"'Inter',sans-serif", background:"#1C2127", color:"#E8E4DC", overflow:"hidden" },
-    sidebar:  { width:220, background:"#141820", borderRight:"1px solid #2A3040", display:"flex", flexDirection:"column", padding:"0 0 16px 0", flexShrink:0 },
-    logo:     { padding:"20px 20px 16px", borderBottom:"1px solid #2A3040", marginBottom:8 },
-    logoText: { fontFamily:"'IBM Plex Mono',monospace", fontSize:12, color:"#D4822A", letterSpacing:"0.05em", fontWeight:600 },
-    logoSub:  { fontSize:10, color:"#5A6478", marginTop:2, letterSpacing:"0.08em", textTransform:"uppercase" },
-    navItem:  a=>({ display:"flex", alignItems:"center", gap:10, padding:"10px 20px", cursor:"pointer", fontSize:13, color:a?"#E8E4DC":"#6B7A94", background:a?"#1C2127":"transparent", borderLeft:a?"2px solid #D4822A":"2px solid transparent", transition:"all 0.15s", fontWeight:a?500:400 }),
-    navSection:{ padding:"16px 20px 6px", fontSize:10, color:"#3A4558", letterSpacing:"0.12em", textTransform:"uppercase", fontWeight:600 },
-    main:     { flex:1, display:"flex", flexDirection:"column", overflow:"hidden" },
-    topbar:   { padding:"0 28px", height:56, borderBottom:"1px solid #2A3040", display:"flex", alignItems:"center", justifyContent:"space-between", flexShrink:0 },
-    pageTitle:{ fontSize:15, fontWeight:600, color:"#E8E4DC" },
-    content:  { flex:1, overflow:"auto", padding:"24px 28px" },
-    card:     { background:"#222831", border:"1px solid #2A3040", borderRadius:8, padding:"20px 24px", marginBottom:16 },
-    cardTitle:{ fontSize:11, color:"#5A6478", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:12, fontWeight:600 },
-    statRow:  { display:"flex", gap:16, marginBottom:20 },
-    stat:     { flex:1, background:"#1C2127", border:"1px solid #2A3040", borderRadius:8, padding:"16px 20px" },
-    statVal:  { fontFamily:"'IBM Plex Mono',monospace", fontSize:28, fontWeight:600, color:"#E8E4DC", lineHeight:1 },
-    statLabel:{ fontSize:11, color:"#5A6478", marginTop:6, letterSpacing:"0.06em" },
-    statDelta:p=>({ fontSize:11, color:p?"#3AAFA9":"#E05252", marginTop:4, fontFamily:"'IBM Plex Mono',monospace" }),
-    table:    { width:"100%", borderCollapse:"collapse", fontSize:13 },
-    th:       { textAlign:"left", padding:"8px 12px", fontSize:10, color:"#5A6478", letterSpacing:"0.1em", textTransform:"uppercase", borderBottom:"1px solid #2A3040", fontWeight:600 },
-    td:       { padding:"10px 12px", borderBottom:"1px solid #1C2127", color:"#B8C0CC" },
-    badge:    t=>{ const bg={"Kitchen Remodel":"#2A3A4A","Bathroom Addition":"#2A3A35","Deck / Outdoor":"#3A2A1A","Basement Finish":"#2A2A3A","Complete":"#1A3A2A","Active":"#3A2A1A","active":"#1A2A3A"}; const tx={"Kitchen Remodel":"#5AABDD","Bathroom Addition":"#3AAFA9","Deck / Outdoor":"#D4822A","Basement Finish":"#9B7FD4","Complete":"#3AAFA9","Active":"#D4822A","active":"#5AABDD"}; return {display:"inline-block",padding:"2px 8px",borderRadius:4,fontSize:11,background:bg[t]||"#2A3040",color:tx[t]||"#6B7A94",fontWeight:500}; },
-    btn:        { padding:"9px 18px", borderRadius:6, border:"none", cursor:"pointer", fontSize:13, fontWeight:500, transition:"all 0.15s" },
-    btnPrimary: { background:"#D4822A", color:"#fff" },
+    app:         { display:"flex", height:"100vh", fontFamily:"'Inter',sans-serif", background:"#1C2127", color:"#E8E4DC", overflow:"hidden" },
+    sidebar:     { width:220, background:"#141820", borderRight:"1px solid #2A3040", display:"flex", flexDirection:"column", padding:"0 0 16px 0", flexShrink:0 },
+    logo:        { padding:"20px 20px 16px", borderBottom:"1px solid #2A3040", marginBottom:8 },
+    logoText:    { fontFamily:"'IBM Plex Mono',monospace", fontSize:12, color:"#D4822A", letterSpacing:"0.05em", fontWeight:600 },
+    logoSub:     { fontSize:10, color:"#5A6478", marginTop:2, letterSpacing:"0.08em", textTransform:"uppercase" },
+    navItem:     a=>({ display:"flex", alignItems:"center", gap:10, padding:"10px 20px", cursor:"pointer", fontSize:13, color:a?"#E8E4DC":"#6B7A94", background:a?"#1C2127":"transparent", borderLeft:a?"2px solid #D4822A":"2px solid transparent", transition:"all 0.15s", fontWeight:a?500:400 }),
+    navSection:  { padding:"16px 20px 6px", fontSize:10, color:"#3A4558", letterSpacing:"0.12em", textTransform:"uppercase", fontWeight:600 },
+    main:        { flex:1, display:"flex", flexDirection:"column", overflow:"hidden" },
+    topbar:      { padding:"0 28px", height:56, borderBottom:"1px solid #2A3040", display:"flex", alignItems:"center", justifyContent:"space-between", flexShrink:0 },
+    pageTitle:   { fontSize:15, fontWeight:600, color:"#E8E4DC" },
+    content:     { flex:1, overflow:"auto", padding:"24px 28px" },
+    card:        { background:"#222831", border:"1px solid #2A3040", borderRadius:8, padding:"20px 24px", marginBottom:16 },
+    cardTitle:   { fontSize:11, color:"#5A6478", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:12, fontWeight:600 },
+    statRow:     { display:"flex", gap:16, marginBottom:20 },
+    stat:        { flex:1, background:"#1C2127", border:"1px solid #2A3040", borderRadius:8, padding:"16px 20px" },
+    statVal:     { fontFamily:"'IBM Plex Mono',monospace", fontSize:28, fontWeight:600, color:"#E8E4DC", lineHeight:1 },
+    statLabel:   { fontSize:11, color:"#5A6478", marginTop:6, letterSpacing:"0.06em" },
+    statDelta:   p=>({ fontSize:11, color:p?"#3AAFA9":"#E05252", marginTop:4, fontFamily:"'IBM Plex Mono',monospace" }),
+    table:       { width:"100%", borderCollapse:"collapse", fontSize:13 },
+    th:          { textAlign:"left", padding:"8px 12px", fontSize:10, color:"#5A6478", letterSpacing:"0.1em", textTransform:"uppercase", borderBottom:"1px solid #2A3040", fontWeight:600 },
+    td:          { padding:"10px 12px", borderBottom:"1px solid #1C2127", color:"#B8C0CC" },
+    badge:       t=>{ const bg={"Kitchen Remodel":"#2A3A4A","Bathroom Addition":"#2A3A35","Deck / Outdoor":"#3A2A1A","Basement Finish":"#2A2A3A","Complete":"#1A3A2A","Active":"#3A2A1A","active":"#1A2A3A"}; const tx={"Kitchen Remodel":"#5AABDD","Bathroom Addition":"#3AAFA9","Deck / Outdoor":"#D4822A","Basement Finish":"#9B7FD4","Complete":"#3AAFA9","Active":"#D4822A","active":"#5AABDD"}; return {display:"inline-block",padding:"2px 8px",borderRadius:4,fontSize:11,background:bg[t]||"#2A3040",color:tx[t]||"#6B7A94",fontWeight:500}; },
+    btn:         { padding:"9px 18px", borderRadius:6, border:"none", cursor:"pointer", fontSize:13, fontWeight:500, transition:"all 0.15s" },
+    btnPrimary:  { background:"#D4822A", color:"#fff" },
     btnSecondary:{ background:"#2A3040", color:"#B8C0CC" },
-    btnGhost:   { background:"transparent", color:"#6B7A94", border:"1px solid #2A3040" },
-    input:    { width:"100%", background:"#1C2127", border:"1px solid #2A3040", borderRadius:6, padding:"10px 14px", color:"#E8E4DC", fontSize:13, fontFamily:"'Inter',sans-serif", outline:"none", boxSizing:"border-box" },
-    inputSm:  { background:"#1C2127", border:"1px solid #2A3040", borderRadius:4, padding:"6px 10px", color:"#E8E4DC", fontSize:12, fontFamily:"'Inter',sans-serif", outline:"none", width:"100%", boxSizing:"border-box" },
-    select:   { width:"100%", background:"#1C2127", border:"1px solid #2A3040", borderRadius:6, padding:"10px 14px", color:"#E8E4DC", fontSize:13, fontFamily:"'Inter',sans-serif", outline:"none", boxSizing:"border-box" },
-    label:    { fontSize:11, color:"#6B7A94", marginBottom:6, display:"block", letterSpacing:"0.06em", textTransform:"uppercase" },
-    dropzone: { border:"2px dashed #2A3040", borderRadius:8, padding:"32px 24px", textAlign:"center", cursor:"pointer", transition:"all 0.15s", display:"block" },
-    varianceBar:  (p,o)=>({ height:6, borderRadius:3, background:o?"#E05252":"#3AAFA9", width:`${Math.min(Math.abs(p)*3,100)}%`, transition:"width 0.5s" }),
-    confidenceBar:n=>({ height:8, borderRadius:4, background:"linear-gradient(90deg,#D4822A,#3AAFA9)", width:`${Math.min(n/12*100,100)}%`, transition:"width 0.8s" }),
+    btnGhost:    { background:"transparent", color:"#6B7A94", border:"1px solid #2A3040" },
+    input:       { width:"100%", background:"#1C2127", border:"1px solid #2A3040", borderRadius:6, padding:"10px 14px", color:"#E8E4DC", fontSize:13, fontFamily:"'Inter',sans-serif", outline:"none", boxSizing:"border-box" },
+    inputSm:     { background:"#1C2127", border:"1px solid #2A3040", borderRadius:4, padding:"6px 10px", color:"#E8E4DC", fontSize:12, fontFamily:"'Inter',sans-serif", outline:"none", width:"100%", boxSizing:"border-box" },
+    select:      { width:"100%", background:"#1C2127", border:"1px solid #2A3040", borderRadius:6, padding:"10px 14px", color:"#E8E4DC", fontSize:13, fontFamily:"'Inter',sans-serif", outline:"none", boxSizing:"border-box" },
+    label:       { fontSize:11, color:"#6B7A94", marginBottom:6, display:"block", letterSpacing:"0.06em", textTransform:"uppercase" },
+    dropzone:    { border:"2px dashed #2A3040", borderRadius:8, padding:"32px 24px", textAlign:"center", cursor:"pointer", transition:"all 0.15s", display:"block" },
+    varianceBar: (p,o)=>({ height:6, borderRadius:3, background:o?"#E05252":"#3AAFA9", width:`${Math.min(Math.abs(p)*3,100)}%`, transition:"width 0.5s" }),
+    confBar:     n=>({ height:8, borderRadius:4, background:"linear-gradient(90deg,#D4822A,#3AAFA9)", width:`${Math.min(n/12*100,100)}%`, transition:"width 0.8s" }),
   };
 
-  // ── Icon ────────────────────────────────────────────────────────────────────
+  // ── Icon ─────────────────────────────────────────────────────────────────────
   const Icon = ({name,size=16,color="currentColor"})=>{
     const p={
       dashboard:"M3 3h8v8H3V3zm10 0h8v8h-8V3zm0 10h8v8h-8v-8zM3 13h8v8H3v-8z",
       jobs:     "M4 4h16v2H4V4zm0 5h16v2H4V9zm0 5h10v2H4v-2z",
       estimate: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z",
-      upload:   "M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12",
       projects: "M3 3h7v7H3V3zm11 0h7v7h-7V3zm0 11h7v7h-7v-7zM3 14h7v7H3v-7z",
-      drawing:  "M2 20h20M4 20V8l8-6 8 6v12M10 20v-6h4v6",
       plus:     "M12 5v14M5 12h14",
       trash:    "M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6",
       back:     "M19 12H5M12 19l-7-7 7-7",
-      check:    "M20 6L9 17l-5-5",
+      upload:   "M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12",
+      download: "M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3",
     };
     return html`<svg width=${size} height=${size} viewBox="0 0 24 24" fill="none" stroke=${color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d=${p[name]} /></svg>`;
   };
 
-  // ── CompCard ─────────────────────────────────────────────────────────────────
+  // ── CompCard ──────────────────────────────────────────────────────────────────
   function CompCard({ job, form }) {
-    const fields = ['finishLevel','demoScope','homeAge','layoutChange',...(job.cabinetType!=null?['cabinetType']:[])];
-    const diffs  = fields.filter(f => form[f] !== null && job[f] !== form[f]);
-    const tagBase = { padding:'2px 7px', borderRadius:3, fontSize:10, fontWeight:500, display:'inline-block' };
+    const fields = [
+      'finishLevel','demoScope','homeAge','layoutChange',
+      ...(job.cabinetType     != null ? ['cabinetType']     : []),
+      ...(job.materialStorage != null ? ['materialStorage'] : []),
+      ...(job.siteAccess      != null ? ['siteAccess']      : []),
+    ];
+    const diffs = fields.filter(f => form[f] !== null && job[f] !== form[f]);
+    const tagBase     = { padding:'2px 7px', borderRadius:3, fontSize:10, fontWeight:500, display:'inline-block' };
     const tagMatch    = { ...tagBase, background:'#1C2127', color:'#6B7A94', border:'1px solid #2A3040' };
     const tagMismatch = { ...tagBase, background:'rgba(212,130,42,0.15)', color:'#D4822A', border:'1px solid rgba(212,130,42,0.35)' };
     return html`
@@ -179,9 +198,7 @@
         <div style=${{ fontSize:12, color:'#E8E4DC', fontWeight:500, marginBottom:2 }}>${job.name}</div>
         <div style=${{ fontSize:11, color:'#5A6478', marginBottom:8 }}>${fmtDate(job.date)} · ${job.sqft} sqft</div>
         <div style=${{ display:'flex', flexWrap:'wrap', gap:4, marginBottom:10 }}>
-          ${fields.map(f => html`
-            <span key=${f} style=${diffs.includes(f) ? tagMismatch : tagMatch}>${qualBadgeLabel(f, job[f])}</span>
-          `)}
+          ${fields.map(f => html`<span key=${f} style=${diffs.includes(f) ? tagMismatch : tagMatch}>${qualBadgeLabel(f, job[f])}</span>`)}
         </div>
         <div style=${{ display:'flex', gap:20, marginBottom: diffs.length ? 8 : 0 }}>
           <div>
@@ -200,23 +217,19 @@
       </div>`;
   }
 
-  // ── NewProjectModal ──────────────────────────────────────────────────────────
+  // ── NewProjectModal ───────────────────────────────────────────────────────────
   function NewProjectModal({ onClose, onCreate }) {
     const [form,    setForm]    = useState({ name:'', address:'', type:'Kitchen Remodel', sqft:'' });
     const [loading, setLoading] = useState(false);
     const [error,   setError]   = useState(null);
     const set = (k,v) => setForm(f=>({...f,[k]:v}));
-
     const submit = async () => {
       if (!form.name.trim()) { setError('Project name is required.'); return; }
       setLoading(true);
-      try {
-        const project = await api('/projects', form);
-        onCreate(project);
-      } catch(e) { setError(e.message); }
+      try { const p = await api('/projects', form); onCreate(p); }
+      catch(e) { setError(e.message); }
       setLoading(false);
     };
-
     return html`
       <div style=${{position:'fixed',inset:0,background:'rgba(0,0,0,0.75)',display:'flex',alignItems:'center',justifyContent:'center',zIndex:1000}}
         onClick=${e=>{ if(e.target===e.currentTarget) onClose(); }}>
@@ -253,22 +266,18 @@
       </div>`;
   }
 
-  // ── ProjectsList ─────────────────────────────────────────────────────────────
+  // ── ProjectsList ──────────────────────────────────────────────────────────────
   function ProjectsList({ onOpen }) {
     const [projects,  setProjects]  = useState([]);
     const [loading,   setLoading]   = useState(true);
     const [showModal, setShowModal] = useState(false);
-
     const load = async () => {
       setLoading(true);
       try { setProjects(await api('/projects')); } catch(e) { console.error(e); }
       setLoading(false);
     };
-
     useEffect(() => { load(); }, []);
-
     const onCreate = p => { setProjects(prev=>[p,...prev]); setShowModal(false); onOpen(p); };
-
     return html`
       <div>
         <div style=${{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:20}}>
@@ -283,8 +292,7 @@
             <div style=${{fontSize:32,marginBottom:12}}>📋</div>
             <div style=${{color:'#5A6478',fontSize:13,lineHeight:1.8}}>
               No projects yet.<br/>
-              <strong style=${{color:'#D4822A'}}>Create a project</strong> to start reading drawings and generating estimates.<br/>
-              Everything will be saved automatically.
+              <strong style=${{color:'#D4822A'}}>Create a project</strong> to start reading drawings and generating estimates.
             </div>
           </div>`}
         ${!loading && projects.map(p=>html`
@@ -296,9 +304,7 @@
             <div>
               <div style=${{fontSize:14,fontWeight:500,color:'#E8E4DC',marginBottom:4}}>${p.name}</div>
               <div style=${{fontSize:12,color:'#5A6478'}}>
-                ${p.type}
-                ${p.sqft ? html` · ${p.sqft} sqft` : ''}
-                ${p.address ? html` · ${p.address}` : ''}
+                ${p.type}${p.sqft?html` · ${p.sqft} sqft`:''}${p.address?html` · ${p.address}`:''}
               </div>
             </div>
             <div style=${{display:'flex',alignItems:'center',gap:14,flexShrink:0}}>
@@ -315,14 +321,148 @@
       </div>`;
   }
 
-  // ── ProjectDetail ────────────────────────────────────────────────────────────
+  // ── DrawingViewer ─────────────────────────────────────────────────────────────
+  function DrawingViewer({ fileUrl, isPdf }) {
+    const containerRef = useRef(null);
+    const dragRef      = useRef(null);
+    const [scale,     setScale]     = useState(1);
+    const [offset,    setOffset]    = useState({x:0, y:0});
+    const [dragging,  setDragging]  = useState(false);
+
+    // Reset view when file changes
+    useEffect(() => { setScale(1); setOffset({x:0, y:0}); }, [fileUrl]);
+
+    // Non-passive wheel listener (required to call preventDefault)
+    useEffect(() => {
+      const el = containerRef.current;
+      if (!el || isPdf) return;
+      const onWheel = e => {
+        e.preventDefault();
+        const rect = el.getBoundingClientRect();
+        const cx = e.clientX - rect.left - rect.width  / 2;
+        const cy = e.clientY - rect.top  - rect.height / 2;
+        const factor = e.deltaY < 0 ? 1.12 : 0.893;
+        setScale(s => {
+          const ns    = Math.min(Math.max(s * factor, 0.08), 14);
+          const ratio = ns / s;
+          setOffset(o => ({ x: cx + (o.x - cx) * ratio, y: cy + (o.y - cy) * ratio }));
+          return ns;
+        });
+      };
+      el.addEventListener('wheel', onWheel, { passive: false });
+      return () => el.removeEventListener('wheel', onWheel);
+    }, [isPdf, fileUrl]);
+
+    if (!fileUrl) return null;
+
+    if (isPdf) {
+      return html`
+        <div style=${{height:620, borderRadius:6, overflow:'hidden', border:'1px solid #2A3040', background:'#111'}}>
+          <embed src=${fileUrl + '#navpanes=0&view=Fit'} type="application/pdf" width="100%" height="100%" style=${{display:'block'}} />
+        </div>`;
+    }
+
+    const onMouseDown = e => {
+      if (e.button !== 0) return;
+      e.preventDefault();
+      setDragging(true);
+      dragRef.current = { mx: e.clientX, my: e.clientY, ox: offset.x, oy: offset.y };
+    };
+    const onMouseMove = e => {
+      if (!dragging || !dragRef.current) return;
+      setOffset({ x: dragRef.current.ox + e.clientX - dragRef.current.mx, y: dragRef.current.oy + e.clientY - dragRef.current.my });
+    };
+    const onStop = () => { setDragging(false); dragRef.current = null; };
+
+    const ctrlBtn = { background:'rgba(20,25,32,0.9)', border:'1px solid #3A4558', color:'#B8C0CC', cursor:'pointer', borderRadius:4, padding:'5px 12px', fontSize:12, fontWeight:500 };
+
+    return html`
+      <div ref=${containerRef}
+        style=${{position:'relative', height:580, borderRadius:6, overflow:'hidden', background:'#0F1318', border:'1px solid #2A3040', cursor: dragging ? 'grabbing' : 'grab', userSelect:'none'}}
+        onMouseDown=${onMouseDown}
+        onMouseMove=${onMouseMove}
+        onMouseUp=${onStop}
+        onMouseLeave=${onStop}>
+        <div style=${{width:'100%', height:'100%', display:'flex', alignItems:'center', justifyContent:'center', pointerEvents:'none'}}>
+          <img
+            src=${fileUrl}
+            draggable=${false}
+            style=${{
+              transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale})`,
+              transformOrigin: 'center center',
+              maxWidth: '96%', maxHeight: '96%',
+              display: 'block', userSelect: 'none',
+            }}
+          />
+        </div>
+        <div style=${{position:'absolute', bottom:12, right:12, display:'flex', gap:6, alignItems:'center'}}>
+          <button style=${ctrlBtn} onClick=${e=>{e.stopPropagation();setScale(s=>Math.min(s*1.25,14));}}>+</button>
+          <span style=${{fontFamily:"'IBM Plex Mono',monospace", fontSize:11, color:'#5A6478', minWidth:42, textAlign:'center'}}>${Math.round(scale*100)}%</span>
+          <button style=${ctrlBtn} onClick=${e=>{e.stopPropagation();setScale(s=>Math.max(s/1.25,0.08));}}>−</button>
+          <button style=${{...ctrlBtn, marginLeft:2}} onClick=${e=>{e.stopPropagation();setScale(1);setOffset({x:0,y:0});}}>Reset</button>
+        </div>
+        <div style=${{position:'absolute', top:10, left:12, fontSize:10, color:'#3A4558'}}>Scroll to zoom · Drag to pan</div>
+      </div>`;
+  }
+
+  // ── ProjectDetail ─────────────────────────────────────────────────────────────
   function ProjectDetail({ projectId, onBack, jobs }) {
-    const [project, setProject] = useState(null);
-    const [tab,     setTab]     = useState('drawing');
-    const [loading, setLoading] = useState(true);
+    const [project,  setProject]  = useState(null);
+    const [tab,      setTab]      = useState('drawing');
+    const [loading,  setLoading]  = useState(true);
+
+    // Lifted drawing state
+    const [drawingResult,   setDrawingResult]   = useState(null);
+    const [drawingItems,    setDrawingItems]     = useState([]);
+    const [drawingFileUrl,  setDrawingFileUrl]   = useState(null);
+    const [drawingFileName, setDrawingFileName]  = useState(null);
+    const [drawingIsPdf,    setDrawingIsPdf]     = useState(false);
+    const drawingInitialized = useRef(false);
+
+    // Lifted estimate state — always initialized to a valid object
+    const [estimateForm,    setEstimateForm]     = useState({
+      type:'Kitchen Remodel', sqft:'', desc:'',
+      finishLevel:null, demoScope:null, layoutChange:null,
+      homeAge:null, cabinetType:null, materialStorage:null, siteAccess:null,
+    });
+    const [estimateResult,  setEstimateResult]   = useState(null);
+    const formInitialized = useRef(false);
 
     const reload = async () => {
-      try { setProject(await api(`/projects/${projectId}`)); } catch(e) { console.error(e); }
+      try {
+        const p = await api(`/projects/${projectId}`);
+        setProject(p);
+        if (!drawingInitialized.current) {
+          drawingInitialized.current = true;
+          const drawings = Array.isArray(p.drawings) ? p.drawings : [];
+          const lastDrawing = drawings.length > 0 ? drawings[drawings.length - 1] : null;
+          if (lastDrawing) {
+            setDrawingResult(lastDrawing);
+            setDrawingItems((lastDrawing.items || []).map((item, i) => ({...item, id:`${lastDrawing.id || 'drawing'}-${i}`})));
+            setDrawingFileUrl(lastDrawing.fileUrl || null);
+            setDrawingFileName(lastDrawing.fileName || 'Saved drawing');
+            setDrawingIsPdf(lastDrawing.mediaType === 'application/pdf' || /\.pdf$/i.test(lastDrawing.fileName || ''));
+          }
+        }
+        if (!formInitialized.current) {
+          formInitialized.current = true;
+          const ests = p.estimates || [];
+          const last = ests.length > 0 ? ests[ests.length - 1] : null;
+          setEstimateForm({
+            type:            last?.jobType        || p.type || 'Kitchen Remodel',
+            sqft:            last?.sqft           || p.sqft || '',
+            desc:            last?.desc           || '',
+            finishLevel:     last?.finishLevel    ?? null,
+            demoScope:       last?.demoScope      ?? null,
+            layoutChange:    last?.layoutChange   ?? null,
+            homeAge:         last?.homeAge        ?? null,
+            cabinetType:     last?.cabinetType    ?? null,
+            materialStorage: last?.materialStorage ?? null,
+            siteAccess:      last?.siteAccess     ?? null,
+          });
+          if (last) setEstimateResult(last);
+        }
+      } catch(e) { console.error(e); }
       setLoading(false);
     };
 
@@ -334,14 +474,12 @@
     const tabs = [
       { id:'drawing',  label:'Read Drawing' },
       { id:'estimate', label:'Estimate' },
-      { id:'history',  label:`History (${(project.drawings||[]).length + (project.estimates||[]).length})` },
     ];
 
     return html`
       <div>
         <div style=${{marginBottom:20}}>
-          <button style=${{...S.btn,...S.btnGhost,display:'flex',alignItems:'center',gap:8,marginBottom:16,padding:'6px 12px',fontSize:12}}
-            onClick=${onBack}>
+          <button style=${{...S.btn,...S.btnGhost,display:'flex',alignItems:'center',gap:8,marginBottom:16,padding:'6px 12px',fontSize:12}} onClick=${onBack}>
             <${Icon} name="back" size=${13} color="#6B7A94" /> All Projects
           </button>
           <div style=${{display:'flex',alignItems:'flex-start',justifyContent:'space-between'}}>
@@ -349,50 +487,69 @@
               <div style=${{fontSize:20,fontWeight:600,color:'#E8E4DC',marginBottom:6}}>${project.name}</div>
               <div style=${{fontSize:13,color:'#5A6478'}}>
                 <span style=${S.badge(project.type)}>${project.type}</span>
-                ${project.sqft ? html`<span style=${{marginLeft:10}}>${project.sqft} sqft</span>` : ''}
-                ${project.address ? html`<span style=${{marginLeft:10}}>${project.address}</span>` : ''}
+                ${project.sqft   ? html`<span style=${{marginLeft:10}}>${project.sqft} sqft</span>` : ''}
+                ${project.address? html`<span style=${{marginLeft:10}}>${project.address}</span>` : ''}
                 <span style=${{marginLeft:10}}>Created ${fmtDate(project.createdAt)}</span>
               </div>
             </div>
             <span style=${S.badge(project.status)}>${project.status}</span>
           </div>
         </div>
-        <div style=${{display:'flex',gap:4,marginBottom:20,borderBottom:'1px solid #2A3040',paddingBottom:0}}>
+
+        <div style=${{display:'flex',gap:4,marginBottom:20,borderBottom:'1px solid #2A3040'}}>
           ${tabs.map(t=>html`
             <button key=${t.id} onClick=${()=>setTab(t.id)}
-              style=${{...S.btn,padding:'8px 18px',borderRadius:'6px 6px 0 0',fontSize:13,background:tab===t.id?'#222831':'transparent',color:tab===t.id?'#E8E4DC':'#5A6478',borderBottom:tab===t.id?'2px solid #D4822A':'2px solid transparent',marginBottom:'-1px'}}>
+              style=${{...S.btn,padding:'8px 18px',borderRadius:'6px 6px 0 0',fontSize:13,
+                background:tab===t.id?'#222831':'transparent',
+                color:tab===t.id?'#E8E4DC':'#5A6478',
+                borderBottom:tab===t.id?'2px solid #D4822A':'2px solid transparent',
+                marginBottom:'-1px'}}>
               ${t.label}
             </button>`)}
         </div>
-        ${tab==='drawing'  && html`<${DrawingTab}  project=${project} onSaved=${reload} />`}
-        ${tab==='estimate' && html`<${EstimateTab} project=${project} onSaved=${reload} jobs=${jobs} />`}
-        ${tab==='history'  && html`<${HistoryTab}  project=${project} />`}
+
+        ${tab==='drawing' && html`<${DrawingTab}
+          project=${project} onSaved=${reload}
+          currentResult=${drawingResult}   setCurrentResult=${setDrawingResult}
+          currentItems=${drawingItems}     setCurrentItems=${setDrawingItems}
+          currentFileUrl=${drawingFileUrl} setCurrentFileUrl=${setDrawingFileUrl}
+          currentFileName=${drawingFileName} setCurrentFileName=${setDrawingFileName}
+          currentIsPdf=${drawingIsPdf}    setCurrentIsPdf=${setDrawingIsPdf}
+        />`}
+        ${tab==='estimate' && html`<${EstimateTab}
+          project=${project} onSaved=${reload} jobs=${jobs}
+          form=${estimateForm}     setForm=${setEstimateForm}
+          result=${estimateResult} setResult=${setEstimateResult}
+        />`}
       </div>`;
   }
 
-  // ── DrawingTab ───────────────────────────────────────────────────────────────
-  function DrawingTab({ project, onSaved }) {
-    const [file,     setFile]     = useState(null);
-    const [preview,  setPreview]  = useState(null);
-    const [fileData, setFileData] = useState(null);
-    const [loading,  setLoading]  = useState(false);
-    const [result,   setResult]   = useState(null);
-    const [items,    setItems]    = useState([]);
-    const [saved,    setSaved]    = useState(false);
-    const [error,    setError]    = useState(null);
-    const [dragging, setDragging] = useState(false);
+  // ── DrawingTab ────────────────────────────────────────────────────────────────
+  function DrawingTab({ project, onSaved,
+    currentResult, setCurrentResult, currentItems, setCurrentItems,
+    currentFileUrl, setCurrentFileUrl, currentFileName, setCurrentFileName,
+    currentIsPdf, setCurrentIsPdf,
+  }) {
+    const [fileData,  setFileData]  = useState(null);
+    const [loading,   setLoading]   = useState(false);
+    const [saved,     setSaved]     = useState(false);
+    const [error,     setError]     = useState(null);
+    const [dragging,  setDragging]  = useState(false);
+    const [expanded,  setExpanded]  = useState({});
+    const fileInputRef = useRef(null);
 
     const handleFile = async f => {
       if (!f) return;
-      setResult(null); setItems([]); setError(null); setSaved(false);
+      setCurrentResult(null); setCurrentItems([]); setError(null); setSaved(false); setFileData(null);
+      if (currentFileUrl) URL.revokeObjectURL(currentFileUrl);
       const compressed = await compressImage(f);
-      setFile(compressed);
+      const isPdf = compressed.type === 'application/pdf';
+      setCurrentIsPdf(isPdf);
+      setCurrentFileName(f.name || (isPdf ? 'drawing.pdf' : 'drawing.jpg'));
+      const objUrl = URL.createObjectURL(compressed);
+      setCurrentFileUrl(objUrl);
       const reader = new FileReader();
-      reader.onload = e => {
-        const dataUrl = e.target.result;
-        setPreview(dataUrl);
-        setFileData({ base64: dataUrl.split(',')[1], mediaType: compressed.type });
-      };
+      reader.onload = e => setFileData({ base64: e.target.result.split(',')[1], mediaType: compressed.type });
       reader.readAsDataURL(compressed);
     };
 
@@ -401,147 +558,259 @@
       setLoading(true); setError(null);
       try {
         const r = await api('/read-drawing', { fileData: fileData.base64, mediaType: fileData.mediaType });
-        setResult(r);
-        setItems(r.items.map((it,i)=>({...it,id:i})));
-        await api(`/projects/${project.projectId}/drawing`, { ...r, items: r.items });
+        if (!Array.isArray(r?.items)) throw new Error('Drawing analysis returned an invalid material list. Please retry.');
+        setCurrentResult(r);
+        setCurrentItems(r.items.map((it,i)=>({...it,id:i})));
+        await api(`/projects/${project.projectId}/drawing`, {
+          ...r,
+          items: r.items,
+          fileName: currentFileName || 'drawing',
+          fileData: fileData.base64,
+          mediaType: fileData.mediaType,
+        });
         setSaved(true);
         onSaved();
       } catch(e) { setError(e.message); }
       setLoading(false);
     };
 
-    const updateItem = (id,f,v) => setItems(p=>p.map(it=>it.id===id?{...it,[f]:v}:it));
-    const addItem    = ()       => setItems(p=>[...p,{id:Date.now(),description:'',spec:'',quantity:null,unit:'ea',notes:''}]);
-    const removeItem = id       => setItems(p=>p.filter(it=>it.id!==id));
-    const confColor  = {high:'#3AAFA9',medium:'#D4822A',low:'#E05252'};
+    const updateItem = (id,f,v) => setCurrentItems(p=>p.map(it=>it.id===id?{...it,[f]:v}:it));
+    const addItem    = ()       => setCurrentItems(p=>[...p,{id:Date.now(),description:'',spec:'',quantity:null,unit:'ea',notes:''}]);
+    const removeItem = id       => setCurrentItems(p=>p.filter(it=>it.id!==id));
 
-    return html`
-      <div style=${{display:'grid',gridTemplateColumns:'340px 1fr',gap:20,alignItems:'start'}}>
+    const confColor  = { high:'#3AAFA9', medium:'#D4822A', low:'#E05252' };
+    const savedDrawings = [...(project.drawings||[])].reverse();
+
+    // ── No file loaded yet: show full dropzone ────────────────────────────────
+    if (!currentFileUrl && !currentResult) {
+      return html`
         <div>
-          <div style=${S.card}>
-            <div style=${S.cardTitle}>Upload Drawing</div>
-            <label style=${{...S.dropzone,borderColor:dragging?'#D4822A':'#2A3040',background:dragging?'#1A2020':'transparent'}}
-              onDragOver=${e=>{e.preventDefault();setDragging(true)}}
-              onDragLeave=${()=>setDragging(false)}
-              onDrop=${e=>{e.preventDefault();setDragging(false);handleFile(e.dataTransfer.files[0])}}>
-              <input type="file" accept="image/*,.pdf" style=${{display:'none'}} onChange=${e=>handleFile(e.target.files[0])} />
-              <div style=${{fontSize:24,marginBottom:8}}>📐</div>
-              <div style=${{fontSize:13,color:'#6B7A94'}}>Drop a photo or PDF</div>
-              <div style=${{fontSize:11,color:'#3A4558',marginTop:4}}>JPG, PNG, HEIC, PDF</div>
-            </label>
-            ${file && html`<div style=${{marginTop:10,fontSize:12,color:'#3AAFA9'}}>✓ ${file.name||'image'} (${(file.size/1024).toFixed(0)} KB)</div>`}
-            ${preview && html`
-              <div style=${{marginTop:10,borderRadius:6,overflow:'hidden',border:'1px solid #2A3040'}}>
-                ${(file&&file.type)==='application/pdf'
-                  ? html`<div style=${{padding:16,textAlign:'center',color:'#5A6478',fontSize:12}}>PDF ready</div>`
-                  : html`<img src=${preview} style=${{width:'100%',display:'block'}} />`}
-              </div>`}
-            ${error && html`<div style=${{color:'#E05252',fontSize:12,marginTop:10}}>${error}</div>`}
-            <button style=${{...S.btn,...S.btnPrimary,width:'100%',padding:'11px 0',fontSize:13,marginTop:14}}
-              onClick=${readDrawing} disabled=${!file||loading}>
-              ${loading?'Reading…':'Extract Material List'}
-            </button>
-            ${saved && html`<div style=${{color:'#3AAFA9',fontSize:12,marginTop:8,textAlign:'center'}}>✓ Saved to project</div>`}
+          <div style=${{maxWidth:480,margin:'0 auto'}}>
+            <div style=${S.card}>
+              <div style=${S.cardTitle}>Upload Drawing</div>
+              <label style=${{...S.dropzone,borderColor:dragging?'#D4822A':'#2A3040',background:dragging?'rgba(212,130,42,0.05)':'transparent'}}
+                onDragOver=${e=>{e.preventDefault();setDragging(true)}}
+                onDragLeave=${()=>setDragging(false)}
+                onDrop=${e=>{e.preventDefault();setDragging(false);handleFile(e.dataTransfer.files[0])}}>
+                <input type="file" accept="image/*,.pdf" style=${{display:'none'}} onChange=${e=>handleFile(e.target.files[0])} />
+                <div style=${{fontSize:36,marginBottom:10}}>📐</div>
+                <div style=${{fontSize:14,color:'#B8C0CC',marginBottom:4}}>Drop a photo or PDF here</div>
+                <div style=${{fontSize:12,color:'#5A6478'}}>or click to browse · JPG, PNG, HEIC, PDF</div>
+              </label>
+              ${error && html`<div style=${{color:'#E05252',fontSize:12,marginTop:12}}>${error}</div>`}
+            </div>
           </div>
-          ${result && html`
-            <div style=${S.card}>
-              <div style=${{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:8}}>
-                <div style=${{fontSize:12,color:'#B8C0CC',fontWeight:500}}>${result.jobType}</div>
-                <span style=${{fontSize:11,padding:'2px 8px',borderRadius:4,background:'#1C2127',color:confColor[result.confidence]||'#6B7A94'}}>
-                  ${result.confidence}
-                </span>
-              </div>
-              ${result.scale && html`<div style=${{fontSize:11,color:'#5A6478',marginBottom:6}}>Scale: ${result.scale}</div>`}
-              ${result.drawingNotes && html`<div style=${{fontSize:12,color:'#6B7A94',lineHeight:1.6,background:'#1C2127',borderRadius:6,padding:'10px 12px'}}>${result.drawingNotes}</div>`}
+          ${savedDrawings.length > 0 && html`<${SavedDrawingsList} drawings=${savedDrawings} expanded=${expanded} setExpanded=${setExpanded} confColor=${confColor} />`}
+        </div>`;
+    }
+
+    // ── File loaded: compact bar + viewer + material list ─────────────────────
+    return html`
+      <div>
+        <!-- Compact top bar -->
+        <div style=${{display:'flex',alignItems:'center',gap:10,marginBottom:16,padding:'10px 14px',background:'#1A2028',borderRadius:6,border:'1px solid #2A3040',flexWrap:'wrap'}}>
+          <button
+            style=${{...S.btn,...S.btnSecondary,padding:'6px 12px',fontSize:12,display:'flex',alignItems:'center',gap:6,flexShrink:0}}
+            onClick=${()=>fileInputRef.current?.click()}>
+            <${Icon} name="upload" size=${13} color="#B8C0CC" /> New Drawing
+          </button>
+          <input ref=${fileInputRef} type="file" accept="image/*,.pdf" style=${{display:'none'}} onChange=${e=>handleFile(e.target.files[0])} />
+
+          <div style=${{display:'flex',alignItems:'center',gap:8,overflow:'hidden',flex:1,minWidth:0}}>
+            <span style=${{fontSize:12,color:'#E8E4DC',fontWeight:500,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>
+              ${currentFileName}
+            </span>
+            ${currentFileUrl && html`<a href=${currentFileUrl} download=${currentFileName}
+              style=${{display:'flex',alignItems:'center',gap:4,fontSize:11,color:'#D4822A',textDecoration:'none',flexShrink:0,
+                       padding:'3px 8px',background:'rgba(212,130,42,0.12)',borderRadius:4,border:'1px solid rgba(212,130,42,0.3)'}}>
+              <${Icon} name="download" size=${11} color="#D4822A" /> Download
+            </a>`}
+          </div>
+
+          ${currentResult && html`
+            <div style=${{display:'flex',alignItems:'center',gap:8,flexShrink:0}}>
+              <span style=${{fontSize:12,color:'#5A6478'}}>${currentResult.jobType}</span>
+              <span style=${{fontSize:11,padding:'2px 8px',borderRadius:4,background:'#1C2127',color:confColor[currentResult.confidence]||'#6B7A94'}}>
+                ${currentResult.confidence} confidence
+              </span>
+              ${saved && html`<span style=${{fontSize:11,color:'#3AAFA9'}}>✓ Saved</span>`}
             </div>`}
+
+          ${!currentResult && html`
+            <button style=${{...S.btn,...S.btnPrimary,padding:'6px 16px',fontSize:12,flexShrink:0}} onClick=${readDrawing} disabled=${!fileData||loading}>
+              ${loading ? 'Reading…' : 'Extract Material List'}
+            </button>`}
+          ${error && html`<span style=${{fontSize:12,color:'#E05252'}}>${error}</span>`}
         </div>
-        <div>
-          ${!result && !loading && html`
-            <div style=${{...S.card,textAlign:'center',padding:'60px 24px'}}>
-              <div style=${{fontSize:32,marginBottom:12}}>📋</div>
-              <div style=${{color:'#5A6478',fontSize:13,lineHeight:1.8}}>Upload a drawing and click <strong style=${{color:'#D4822A'}}>Extract Material List</strong>.<br/>Results are saved to this project automatically.</div>
-            </div>`}
-          ${loading && html`
-            <div style=${{...S.card,textAlign:'center',padding:'60px 24px'}}>
-              <div style=${{fontSize:13,color:'#6B7A94'}}>Reading drawing… usually 5–10 seconds</div>
-            </div>`}
-          ${result && html`
-            <div style=${S.card}>
-              <div style=${{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:14}}>
-                <div style=${S.cardTitle}>Extracted Materials · ${items.length} items</div>
-                <button style=${{...S.btn,...S.btnSecondary,padding:'5px 12px',fontSize:12,display:'flex',alignItems:'center',gap:6}} onClick=${addItem}>
-                  <${Icon} name="plus" size=${12} color="#B8C0CC" /> Add Row
-                </button>
-              </div>
-              <div style=${{overflowX:'auto'}}>
-                <table style=${{...S.table,tableLayout:'fixed'}}>
-                  <colgroup>
-                    <col style=${{width:'26%'}}/><col style=${{width:'20%'}}/><col style=${{width:'8%'}}/><col style=${{width:'8%'}}/><col style=${{width:'32%'}}/><col style=${{width:'6%'}}/>
-                  </colgroup>
-                  <thead><tr>${['Description','Spec / Product Code','Qty','Unit','Notes',''].map(h=>html`<th key=${h} style=${S.th}>${h}</th>`)}</tr></thead>
-                  <tbody>
-                    ${items.map(it=>html`
-                      <tr key=${it.id}>
-                        <td style=${S.td}><input style=${S.inputSm} value=${it.description||''} onInput=${e=>updateItem(it.id,'description',e.target.value)} /></td>
-                        <td style=${S.td}><input style=${{...S.inputSm,fontFamily:"'IBM Plex Mono',monospace",fontSize:11}} value=${it.spec||''} onInput=${e=>updateItem(it.id,'spec',e.target.value)} /></td>
-                        <td style=${S.td}><input style=${{...S.inputSm,textAlign:'right'}} type="number" value=${it.quantity??''} placeholder="—" onInput=${e=>updateItem(it.id,'quantity',e.target.value===''?null:parseFloat(e.target.value))} /></td>
-                        <td style=${S.td}>
-                          <select style=${{...S.inputSm,padding:'6px 4px'}} value=${it.unit||'ea'} onChange=${e=>updateItem(it.id,'unit',e.target.value)}>
-                            ${UNITS.map(u=>html`<option key=${u}>${u}</option>`)}
-                          </select>
-                        </td>
-                        <td style=${S.td}><input style=${{...S.inputSm,color:'#6B7A94'}} value=${it.notes||''} onInput=${e=>updateItem(it.id,'notes',e.target.value)} /></td>
-                        <td style=${{...S.td,textAlign:'center'}}>
-                          <button onClick=${()=>removeItem(it.id)} style=${{background:'none',border:'none',cursor:'pointer',padding:4,lineHeight:0}}>
-                            <${Icon} name="trash" size=${13} color="#5A6478" />
-                          </button>
-                        </td>
-                      </tr>`)}
-                  </tbody>
-                </table>
-              </div>
-              <div style=${{marginTop:14,display:'flex',justifyContent:'flex-end'}}>
-                <button style=${{...S.btn,...S.btnSecondary,fontSize:12}} onClick=${()=>{
-                  const csv=['Description,Spec,Qty,Unit,Notes',...items.map(it=>`"${it.description}","${it.spec||''}",${it.quantity??''},"${it.unit}","${it.notes||''}"`)].join('\n');
-                  const a=document.createElement('a'); a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv); a.download='material-list.csv'; a.click();
-                }}>Export CSV</button>
-              </div>
-            </div>`}
-        </div>
+
+        <!-- Drawing viewer: full width -->
+        <${DrawingViewer} fileUrl=${currentFileUrl} isPdf=${currentIsPdf} />
+        ${currentResult && !currentFileUrl && html`
+          <div style=${{...S.card,textAlign:'center',padding:'24px',marginBottom:16,color:'#6B7A94',fontSize:12,lineHeight:1.6}}>
+            This saved drawing predates file storage, so its material table is restored but the original image is unavailable.
+          </div>`}
+        ${currentResult?.drawingNotes && html`
+          <div style=${{marginTop:8,marginBottom:16,fontSize:12,color:'#6B7A94',lineHeight:1.6,background:'#1A2028',borderRadius:6,padding:'10px 14px',border:'1px solid #2A3040'}}>
+            ${currentResult.drawingNotes}
+          </div>`}
+
+        <!-- Status messages when no result yet -->
+        ${!currentResult && !loading && html`
+          <div style=${{...S.card,textAlign:'center',padding:'32px 24px',marginTop:16}}>
+            <div style=${{fontSize:24,marginBottom:10}}>📋</div>
+            <div style=${{color:'#5A6478',fontSize:13,lineHeight:1.7,marginBottom:16}}>
+              Drawing loaded. Click <strong style=${{color:'#D4822A'}}>Extract Material List</strong> to analyze.
+            </div>
+            <button style=${{...S.btn,...S.btnPrimary,padding:'10px 32px'}} onClick=${readDrawing} disabled=${!fileData||loading}>
+              Extract Material List
+            </button>
+            ${error && html`<div style=${{color:'#E05252',fontSize:12,marginTop:10}}>${error}</div>`}
+          </div>`}
+        ${loading && html`
+          <div style=${{...S.card,textAlign:'center',padding:'32px 24px',marginTop:16}}>
+            <div style=${{fontSize:13,color:'#6B7A94'}}>Reading drawing… usually 5–10 seconds</div>
+          </div>`}
+
+        <!-- Material list: full width below viewer -->
+        ${currentResult && html`
+          <div style=${{...S.card,marginTop:16}}>
+            <div style=${{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:14}}>
+              <div style=${S.cardTitle}>Materials · ${currentItems.length} items</div>
+              <button style=${{...S.btn,...S.btnSecondary,padding:'5px 12px',fontSize:12,display:'flex',alignItems:'center',gap:6}} onClick=${addItem}>
+                <${Icon} name="plus" size=${12} color="#B8C0CC" /> Add Row
+              </button>
+            </div>
+            <div style=${{overflowX:'auto'}}>
+              <table style=${{...S.table,tableLayout:'fixed'}}>
+                <colgroup>
+                  <col style=${{width:'22%'}}/><col style=${{width:'18%'}}/><col style=${{width:'7%'}}/><col style=${{width:'7%'}}/><col style=${{width:'42%'}}/><col style=${{width:'4%'}}/>
+                </colgroup>
+                <thead><tr>${['Description','Spec / Product Code','Qty','Unit','Notes',''].map(h=>html`<th key=${h} style=${S.th}>${h}</th>`)}</tr></thead>
+                <tbody>
+                  ${currentItems.map(it=>html`
+                    <tr key=${it.id}>
+                      <td style=${S.td}><input style=${S.inputSm} value=${it.description||''} onInput=${e=>updateItem(it.id,'description',e.target.value)} /></td>
+                      <td style=${S.td}><input style=${{...S.inputSm,fontFamily:"'IBM Plex Mono',monospace",fontSize:11}} value=${it.spec||''} onInput=${e=>updateItem(it.id,'spec',e.target.value)} /></td>
+                      <td style=${S.td}><input style=${{...S.inputSm,textAlign:'right'}} type="number" value=${it.quantity??''} placeholder="—" onInput=${e=>updateItem(it.id,'quantity',e.target.value===''?null:parseFloat(e.target.value))} /></td>
+                      <td style=${S.td}>
+                        <select style=${{...S.inputSm,padding:'6px 4px'}} value=${it.unit||'ea'} onChange=${e=>updateItem(it.id,'unit',e.target.value)}>
+                          ${UNITS.map(u=>html`<option key=${u}>${u}</option>`)}
+                        </select>
+                      </td>
+                      <td style=${S.td}><input style=${{...S.inputSm,color:'#8A9BB0'}} value=${it.notes||''} onInput=${e=>updateItem(it.id,'notes',e.target.value)} /></td>
+                      <td style=${{...S.td,textAlign:'center',padding:'6px'}}>
+                        <button onClick=${()=>removeItem(it.id)} style=${{background:'none',border:'none',cursor:'pointer',padding:4,lineHeight:0}}>
+                          <${Icon} name="trash" size=${12} color="#5A6478" />
+                        </button>
+                      </td>
+                    </tr>`)}
+                </tbody>
+              </table>
+            </div>
+            <div style=${{marginTop:14,display:'flex',justifyContent:'flex-end'}}>
+              <button style=${{...S.btn,...S.btnSecondary,fontSize:12}} onClick=${()=>{
+                const csv=['Description,Spec,Qty,Unit,Notes',...currentItems.map(it=>`"${it.description||''}","${it.spec||''}",${it.quantity??''},"${it.unit}","${it.notes||''}"`)].join('\n');
+                const a=document.createElement('a'); a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv); a.download='material-list.csv'; a.click();
+              }}>Export CSV</button>
+            </div>
+          </div>`}
+
+        <!-- Re-extract button when result is showing -->
+        ${currentResult && fileData && html`
+          <div style=${{marginBottom:16,display:'flex',gap:10,alignItems:'center'}}>
+            <button style=${{...S.btn,...S.btnSecondary,fontSize:12,display:'flex',alignItems:'center',gap:6}} onClick=${readDrawing} disabled=${!fileData||loading}>
+              ${loading ? 'Re-reading…' : 'Re-extract Material List'}
+            </button>
+            <span style=${{fontSize:12,color:'#3A4558'}}>Re-run analysis on the current drawing</span>
+          </div>`}
+
+        <!-- Saved drawings history -->
+        ${savedDrawings.length > 0 && html`<${SavedDrawingsList} drawings=${savedDrawings} expanded=${expanded} setExpanded=${setExpanded} confColor=${confColor} />`}
       </div>`;
   }
 
-  // ── EstimateTab ──────────────────────────────────────────────────────────────
-  function EstimateTab({ project, onSaved, jobs }) {
-    const [form,    setForm]    = useState({
-      type: project.type||'Kitchen Remodel', sqft: project.sqft||'', desc:'',
-      finishLevel:null, demoScope:null, layoutChange:null, homeAge:null, cabinetType:null,
-    });
-    const [result,  setResult]  = useState(null);
+  // ── SavedDrawingsList ─────────────────────────────────────────────────────────
+  function SavedDrawingsList({ drawings, expanded, setExpanded, confColor }) {
+    return html`
+      <div style=${S.card}>
+        <div style=${S.cardTitle}>Saved Drawings (${drawings.length})</div>
+        ${drawings.map((d,i)=>html`
+          <div key=${d.id||i} style=${{borderBottom: i < drawings.length-1 ? '1px solid #1C2127' : 'none', paddingBottom:10, marginBottom:10}}>
+            <div style=${{display:'flex',justifyContent:'space-between',alignItems:'center',cursor:'pointer'}}
+              onClick=${()=>setExpanded(p=>({...p,[i]:!p[i]}))}>
+              <div>
+                <div style=${{fontSize:12,color:'#E8E4DC',fontWeight:500}}>${d.fileName || d.jobType || 'Drawing'}</div>
+                <div style=${{fontSize:11,color:'#5A6478',marginTop:2}}>
+                  ${fmtDate(d.savedAt)} · ${(d.items||[]).length} items
+                  ${d.confidence ? html` · <span style=${{color:confColor[d.confidence]||'#6B7A94'}}>${d.confidence}</span>` : ''}
+                </div>
+              </div>
+              <span style=${{fontSize:11,color:'#5A6478'}}>${expanded[i]?'▲':'▼'}</span>
+            </div>
+            ${expanded[i] && html`
+              <div style=${{marginTop:10}}>
+                ${d.drawingNotes && html`<div style=${{fontSize:12,color:'#6B7A94',lineHeight:1.5,background:'#1C2127',borderRadius:4,padding:'8px 10px',marginBottom:8}}>${d.drawingNotes}</div>`}
+                <table style=${{...S.table,fontSize:12}}>
+                  <thead><tr>
+                    <th style=${S.th}>Description</th>
+                    <th style=${{...S.th,textAlign:'right'}}>Qty</th>
+                    <th style=${S.th}>Unit</th>
+                    <th style=${S.th}>Notes / Spec</th>
+                  </tr></thead>
+                  <tbody>
+                    ${(d.items||[]).map((it,j)=>html`
+                      <tr key=${j}>
+                        <td style=${S.td}>${it.description}</td>
+                        <td style=${{...S.td,fontFamily:"'IBM Plex Mono',monospace",fontSize:11,textAlign:'right'}}>${it.quantity??'—'}</td>
+                        <td style=${{...S.td,color:'#5A6478'}}>${it.unit}</td>
+                        <td style=${{...S.td,color:'#5A6478',fontSize:11}}>${it.notes||it.spec||''}</td>
+                      </tr>`)}
+                  </tbody>
+                </table>
+              </div>`}
+          </div>`)}
+      </div>`;
+  }
+
+  // ── EstimateTab ───────────────────────────────────────────────────────────────
+  function EstimateTab({ project, onSaved, jobs, form, setForm, result, setResult }) {
     const [loading, setLoading] = useState(false);
     const [saved,   setSaved]   = useState(false);
     const [error,   setError]   = useState(null);
 
-    const set = (k,v) => setForm(f=>({...f,[k]:v}));
-    const setType = v => setForm(f=>({...f, type:v, cabinetType:null}));
+    const set     = (k,v) => setForm(f=>({...f,[k]:v}));
+    const setType = v     => setForm(f=>({...f, type:v, cabinetType:null}));
 
-    const qualFields = ['finishLevel','demoScope','layoutChange','homeAge',...(form.type==='Kitchen Remodel'?['cabinetType']:[])];
+    const qualFields = [
+      'finishLevel','demoScope','layoutChange','homeAge',
+      ...(form.type==='Kitchen Remodel'?['cabinetType']:[]),
+      'materialStorage','siteAccess',
+    ];
     const activeFilters = qualFields.filter(f => form[f] !== null).length;
     const matchResult   = getMatchedComps(jobs, form);
 
     const run = async () => {
       if (!form.sqft) { setError('Please enter square footage.'); return; }
-      setError(null); setLoading(true); setResult(null); setSaved(false);
+      setError(null); setLoading(true); setSaved(false);
       try {
-        const qualifiers = { finishLevel:form.finishLevel, demoScope:form.demoScope, layoutChange:form.layoutChange, homeAge:form.homeAge, cabinetType:form.cabinetType };
+        const qualifiers = {
+          finishLevel:form.finishLevel, demoScope:form.demoScope, layoutChange:form.layoutChange,
+          homeAge:form.homeAge, cabinetType:form.cabinetType,
+          materialStorage:form.materialStorage, siteAccess:form.siteAccess,
+        };
         const r = await api('/estimate', {
           type: form.type, sqft: form.sqft, desc: form.desc,
           qualifiers,
-          comparableJobs: matchResult.comps.slice(0, 8),
+          comparableJobs: matchResult.comps.slice(0,8),
           compMatchInfo: { exactCount:matchResult.exactCount, total:matchResult.total, relaxed:matchResult.relaxed },
         });
         setResult(r);
-        await api(`/projects/${project.projectId}/estimate`, { ...r, jobType:form.type, sqft:form.sqft });
+        await api(`/projects/${project.projectId}/estimate`, {
+          ...r, jobType:form.type, sqft:form.sqft, desc:form.desc,
+          finishLevel:form.finishLevel, demoScope:form.demoScope, layoutChange:form.layoutChange,
+          homeAge:form.homeAge, cabinetType:form.cabinetType,
+          materialStorage:form.materialStorage, siteAccess:form.siteAccess,
+        });
         setSaved(true);
         onSaved();
       } catch(e) { setError(e.message); }
@@ -549,6 +818,7 @@
     };
 
     const selectSm = { ...S.select, padding:'7px 10px', fontSize:12 };
+    const savedEstimates = [...(project.estimates||[])].reverse();
 
     return html`
       <div style=${{display:'grid',gridTemplateColumns:'1fr 1fr',gap:20,alignItems:'start'}}>
@@ -569,15 +839,13 @@
             </div>
             <div style=${{marginBottom:14}}>
               <label style=${S.label}>Scope Notes (optional)</label>
-              <textarea style=${{...S.input,height:60,resize:'vertical'}} placeholder="e.g. full gut, new cabinets, LVP flooring..." value=${form.desc} onInput=${e=>set('desc',e.target.value)} />
+              <textarea style=${{...S.input,height:70,resize:'vertical'}} placeholder="e.g. full gut, new cabinets, LVP flooring…" value=${form.desc} onInput=${e=>set('desc',e.target.value)} />
             </div>
 
-            <!-- Qualifiers -->
             <div style=${{borderTop:'1px solid #2A3040',paddingTop:14,marginBottom:14}}>
               <div style=${{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:10}}>
                 <div style=${{fontSize:11,color:'#5A6478',letterSpacing:'0.1em',textTransform:'uppercase',fontWeight:600}}>Qualifiers</div>
-                ${activeFilters > 0 && html`
-                  <div style=${{fontSize:11,color:'#D4822A',fontWeight:500}}>Filtering on ${activeFilters} qualifier${activeFilters!==1?'s':''}</div>`}
+                ${activeFilters > 0 && html`<div style=${{fontSize:11,color:'#D4822A',fontWeight:500}}>Filtering on ${activeFilters}</div>`}
               </div>
               <div style=${{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
                 <div>
@@ -610,6 +878,20 @@
                     ${QUALIFIER_OPTIONS.homeAge.map(v=>html`<option key=${v} value=${v}>${v}</option>`)}
                   </select>
                 </div>
+                <div>
+                  <label style=${S.label}>Material Storage</label>
+                  <select style=${selectSm} value=${form.materialStorage||''} onChange=${e=>set('materialStorage',e.target.value||null)}>
+                    <option value="">Any</option>
+                    ${QUALIFIER_OPTIONS.materialStorage.map(v=>html`<option key=${v} value=${v}>${v}</option>`)}
+                  </select>
+                </div>
+                <div>
+                  <label style=${S.label}>Site Access</label>
+                  <select style=${selectSm} value=${form.siteAccess||''} onChange=${e=>set('siteAccess',e.target.value||null)}>
+                    <option value="">Any</option>
+                    ${QUALIFIER_OPTIONS.siteAccess.map(v=>html`<option key=${v} value=${v}>${v}</option>`)}
+                  </select>
+                </div>
                 ${form.type==='Kitchen Remodel' && html`
                   <div style=${{gridColumn:'1/-1'}}>
                     <label style=${S.label}>Cabinet Type</label>
@@ -621,48 +903,51 @@
               </div>
             </div>
 
-            <!-- Match info / confidence -->
             <div style=${{background:'#1C2127',borderRadius:6,padding:'12px 14px',marginBottom:18}}>
               <div style=${{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}>
                 ${matchResult.total === 0
                   ? html`<span style=${{fontSize:12,color:'#5A6478'}}>No ${form.type}s in history</span>`
                   : activeFilters === 0
                     ? html`<span style=${{fontSize:12,color:'#B8C0CC'}}>${matchResult.total} ${form.type}s in history</span>`
-                    : html`<span style=${{fontSize:12,color:'#B8C0CC'}}>${matchResult.exactCount} of ${matchResult.total} ${form.type}s match</span>`}
+                    : html`<span style=${{fontSize:12,color:'#B8C0CC'}}>${matchResult.exactCount} of ${matchResult.total} match</span>`}
                 <span style=${{fontFamily:"'IBM Plex Mono',monospace",fontSize:11,color:'#D4822A'}}>${Math.min(matchResult.comps.length,12)}/12</span>
               </div>
               <div style=${{height:8,background:'#2A3040',borderRadius:4,marginBottom:6}}>
-                <div style=${S.confidenceBar(matchResult.comps.length)} />
+                <div style=${S.confBar(matchResult.comps.length)} />
               </div>
               ${matchResult.relaxed && html`
                 <div style=${{fontSize:11,color:'#D4822A'}}>
-                  Only ${matchResult.exactCount} exact match${matchResult.exactCount!==1?'es':''} — showing nearest comps with differences noted
+                  Only ${matchResult.exactCount} exact match${matchResult.exactCount!==1?'es':''} — showing nearest comps
                 </div>`}
             </div>
 
             ${error && html`<div style=${{color:'#E05252',fontSize:12,marginBottom:10}}>${error}</div>`}
             <button style=${{...S.btn,...S.btnPrimary,width:'100%',padding:'11px 0',fontSize:13}} onClick=${run} disabled=${loading}>
-              ${loading?'Generating…':'Generate Estimate'}
+              ${loading ? 'Generating…' : result ? 'Re-run Estimate' : 'Generate Estimate'}
             </button>
             ${saved && html`<div style=${{color:'#3AAFA9',fontSize:12,marginTop:8,textAlign:'center'}}>✓ Saved to project</div>`}
+            ${loading && html`<div style=${{color:'#6B7A94',fontSize:12,marginTop:8,textAlign:'center'}}>Analyzing ${matchResult.comps.length} comparable jobs…</div>`}
           </div>
         </div>
 
-        <!-- RIGHT: results -->
+        <!-- RIGHT: result + history -->
         <div>
-          ${!result&&!loading&&html`
+          ${!result && !loading && html`
             <div style=${{...S.card,textAlign:'center',padding:'50px 24px'}}>
               <div style=${{fontSize:28,marginBottom:10}}>📐</div>
               <div style=${{color:'#5A6478',fontSize:13}}>Fill in details and click <strong style=${{color:'#D4822A'}}>Generate Estimate</strong>.</div>
             </div>`}
-          ${loading&&html`<div style=${{...S.card,textAlign:'center',padding:'50px 24px'}}><div style=${{color:'#6B7A94',fontSize:13}}>Analyzing ${matchResult.comps.length} comparable jobs…</div></div>`}
-          ${result&&html`
+
+          ${result && html`
             <div>
               <div style=${S.card}>
-                <div style=${S.cardTitle}>Result</div>
+                <div style=${{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12}}>
+                  <div style=${S.cardTitle}>Result</div>
+                  ${result.savedAt && html`<div style=${{fontSize:11,color:'#3A4558'}}>Generated ${fmtDate(result.savedAt)}</div>`}
+                </div>
                 <div style=${{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,marginBottom:16}}>
                   ${[
-                    {label:'Labor Hours', val:result.estHours, range:`${result.estHoursLow}–${result.estHoursHigh} hrs`},
+                    {label:'Labor Hours', val:result.estHours,          range:`${result.estHoursLow}–${result.estHoursHigh} hrs`},
                     {label:'Materials',   val:fmt(result.estMaterials), range:`${fmt(result.estMaterialsLow)}–${fmt(result.estMaterialsHigh)}`},
                   ].map(s=>html`
                     <div key=${s.label} style=${{background:'#1C2127',borderRadius:6,padding:'14px 16px'}}>
@@ -686,109 +971,80 @@
                 </div>
               </div>
 
-              <div style=${S.card}>
-                <div style=${S.cardTitle}>Risk Factors</div>
-                ${result.risks?.map((r,i)=>html`
-                  <div key=${i} style=${{display:'flex',gap:10,padding:'7px 0',borderBottom:'1px solid #1C2127'}}>
-                    <span style=${{color:'#D4822A',fontSize:11,marginTop:2,flexShrink:0}}>▲</span>
-                    <span style=${{fontSize:12,color:'#B8C0CC',lineHeight:1.5}}>${r}</span>
-                  </div>`)}
-              </div>
+              ${result.risks?.length > 0 && html`
+                <div style=${S.card}>
+                  <div style=${S.cardTitle}>Risk Factors</div>
+                  ${result.risks.map((r,i)=>html`
+                    <div key=${i} style=${{display:'flex',gap:10,padding:'7px 0',borderBottom:'1px solid #1C2127'}}>
+                      <span style=${{color:'#D4822A',fontSize:11,marginTop:2,flexShrink:0}}>▲</span>
+                      <span style=${{fontSize:12,color:'#B8C0CC',lineHeight:1.5}}>${r}</span>
+                    </div>`)}
+                </div>`}
 
-              <!-- Comparable job cards -->
               <div style=${S.card}>
                 <div style=${{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:matchResult.relaxed?8:12}}>
                   <div style=${S.cardTitle}>Comparable Jobs</div>
                   <span style=${{fontSize:11,color:matchResult.relaxed?'#D4822A':'#5A6478'}}>
-                    ${matchResult.exactCount} of ${matchResult.total} exact match${matchResult.exactCount!==1?'es':''}
+                    ${matchResult.exactCount} of ${matchResult.total} exact
                   </span>
                 </div>
                 ${matchResult.relaxed && html`
                   <div style=${{background:'rgba(212,130,42,0.1)',border:'1px solid rgba(212,130,42,0.25)',borderRadius:6,padding:'8px 12px',marginBottom:12,fontSize:12,color:'#D4822A'}}>
-                    Only ${matchResult.exactCount} exact match${matchResult.exactCount!==1?'es':''} found — showing nearest comps with qualifier differences highlighted in amber
+                    Only ${matchResult.exactCount} exact match${matchResult.exactCount!==1?'es':''} — showing nearest with differences in amber
                   </div>`}
-                <div style=${{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(210px,1fr))',gap:10}}>
+                <div style=${{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(200px,1fr))',gap:10}}>
                   ${matchResult.comps.slice(0,6).map(job=>html`<${CompCard} key=${job.id} job=${job} form=${form} />`)}
                 </div>
               </div>
+            </div>`}
+
+          ${savedEstimates.length > 0 && html`
+            <div style=${S.card}>
+              <div style=${S.cardTitle}>Estimate History (${savedEstimates.length})</div>
+              ${savedEstimates.map((e,i)=>{
+                const isActive = result && e.savedAt === result.savedAt;
+                return html`
+                  <div key=${e.id||i} style=${{borderBottom:i<savedEstimates.length-1?'1px solid #1C2127':'none',paddingBottom:12,marginBottom:i<savedEstimates.length-1?12:0,opacity:isActive?1:0.65}}>
+                    <div style=${{display:'flex',justifyContent:'space-between',alignItems:'flex-start'}}>
+                      <div>
+                        <div style=${{display:'flex',gap:10,alignItems:'center',marginBottom:4}}>
+                          <span style=${{fontFamily:"'IBM Plex Mono',monospace",fontSize:13,color:'#E8E4DC',fontWeight:600}}>${e.estHours} hrs</span>
+                          <span style=${{fontFamily:"'IBM Plex Mono',monospace",fontSize:13,color:'#D4822A',fontWeight:600}}>${fmt(e.estMaterials)}</span>
+                          ${isActive && html`<span style=${{fontSize:10,padding:'1px 6px',borderRadius:3,background:'rgba(212,130,42,0.15)',color:'#D4822A'}}>current</span>`}
+                        </div>
+                        <div style=${{fontSize:11,color:'#5A6478'}}>${fmtDate(e.savedAt)} · confidence ${e.confidence}/10</div>
+                        ${(e.finishLevel||e.demoScope||e.homeAge||e.materialStorage||e.siteAccess) && html`
+                          <div style=${{display:'flex',flexWrap:'wrap',gap:3,marginTop:5}}>
+                            ${e.finishLevel     && html`<span style=${{padding:'1px 5px',borderRadius:3,fontSize:10,background:'#2A3040',color:'#6B7A94'}}>${e.finishLevel}</span>`}
+                            ${e.demoScope       && html`<span style=${{padding:'1px 5px',borderRadius:3,fontSize:10,background:'#2A3040',color:'#6B7A94'}}>${e.demoScope}</span>`}
+                            ${e.homeAge         && html`<span style=${{padding:'1px 5px',borderRadius:3,fontSize:10,background:'#2A3040',color:'#6B7A94'}}>${homeAgeShort(e.homeAge)}</span>`}
+                            ${e.materialStorage && html`<span style=${{padding:'1px 5px',borderRadius:3,fontSize:10,background:'#2A3040',color:'#6B7A94'}}>${e.materialStorage}</span>`}
+                            ${e.siteAccess      && html`<span style=${{padding:'1px 5px',borderRadius:3,fontSize:10,background:'#2A3040',color:'#6B7A94'}}>${e.siteAccess}</span>`}
+                          </div>`}
+                      </div>
+                      ${!isActive && html`
+                        <button style=${{...S.btn,...S.btnSecondary,padding:'4px 10px',fontSize:11,flexShrink:0}} onClick=${()=>setResult(e)}>View</button>`}
+                    </div>
+                  </div>`;
+              })}
             </div>`}
         </div>
       </div>`;
   }
 
-  // ── HistoryTab ───────────────────────────────────────────────────────────────
-  function HistoryTab({ project }) {
-    const [expanded, setExpanded] = useState({});
-    const toggle = id => setExpanded(p=>({...p,[id]:!p[id]}));
-
-    const drawings  = [...(project.drawings||[])].reverse();
-    const estimates = [...(project.estimates||[])].reverse();
-
-    return html`
-      <div style=${{display:'grid',gridTemplateColumns:'1fr 1fr',gap:20}}>
-        <div>
-          <div style=${S.card}>
-            <div style=${S.cardTitle}>Saved Drawings (${drawings.length})</div>
-            ${drawings.length===0 && html`<div style=${{color:'#5A6478',fontSize:13}}>No drawings saved yet.</div>`}
-            ${drawings.map((d,i)=>html`
-              <div key=${d.id||i} style=${{borderBottom:'1px solid #1C2127',paddingBottom:12,marginBottom:12}}>
-                <div style=${{display:'flex',justifyContent:'space-between',alignItems:'center',cursor:'pointer',marginBottom:expanded[d.id||i]?8:0}}
-                  onClick=${()=>toggle(d.id||i)}>
-                  <div>
-                    <div style=${{fontSize:12,color:'#E8E4DC',fontWeight:500}}>${d.jobType||'Drawing'}</div>
-                    <div style=${{fontSize:11,color:'#5A6478',marginTop:2}}>${fmtDate(d.savedAt)} · ${(d.items||[]).length} items · ${d.confidence||'—'} confidence</div>
-                  </div>
-                  <span style=${{fontSize:11,color:'#5A6478'}}>${expanded[d.id||i]?'▲':'▼'}</span>
-                </div>
-                ${expanded[d.id||i] && html`
-                  <div style=${{marginTop:8}}>
-                    ${(d.items||[]).map((it,j)=>html`
-                      <div key=${j} style=${{display:'flex',justifyContent:'space-between',padding:'4px 0',borderBottom:'1px solid #1C2127',fontSize:12}}>
-                        <span style=${{color:'#B8C0CC'}}>${it.description}</span>
-                        <span style=${{fontFamily:"'IBM Plex Mono',monospace",color:'#5A6478',fontSize:11}}>${it.quantity??'—'} ${it.unit} ${it.spec?`· ${it.spec}`:''}</span>
-                      </div>`)}
-                  </div>`}
-              </div>`)}
-          </div>
-        </div>
-        <div>
-          <div style=${S.card}>
-            <div style=${S.cardTitle}>Saved Estimates (${estimates.length})</div>
-            ${estimates.length===0 && html`<div style=${{color:'#5A6478',fontSize:13}}>No estimates saved yet.</div>`}
-            ${estimates.map((e,i)=>html`
-              <div key=${e.id||i} style=${{borderBottom:'1px solid #1C2127',paddingBottom:12,marginBottom:12}}>
-                <div style=${{display:'flex',justifyContent:'space-between',alignItems:'center',cursor:'pointer',marginBottom:expanded[`est_${e.id||i}`]?8:0}}
-                  onClick=${()=>toggle(`est_${e.id||i}`)}>
-                  <div>
-                    <div style=${{display:'flex',gap:10}}>
-                      <span style=${{fontFamily:"'IBM Plex Mono',monospace",fontSize:13,color:'#E8E4DC',fontWeight:600}}>${e.estHours} hrs</span>
-                      <span style=${{fontFamily:"'IBM Plex Mono',monospace",fontSize:13,color:'#D4822A',fontWeight:600}}>${fmt(e.estMaterials)}</span>
-                    </div>
-                    <div style=${{fontSize:11,color:'#5A6478',marginTop:2}}>${fmtDate(e.savedAt)} · confidence ${e.confidence}/10</div>
-                  </div>
-                  <span style=${{fontSize:11,color:'#5A6478'}}>${expanded[`est_${e.id||i}`]?'▲':'▼'}</span>
-                </div>
-                ${expanded[`est_${e.id||i}`] && html`
-                  <div style=${{background:'#1C2127',borderRadius:6,padding:'10px 12px',marginTop:8,fontSize:12,color:'#B8C0CC',lineHeight:1.6}}>${e.rationale}</div>`}
-              </div>`)}
-          </div>
-        </div>
-      </div>`;
-  }
-
-  // ── Dashboard ────────────────────────────────────────────────────────────────
+  // ── Dashboard ─────────────────────────────────────────────────────────────────
   function Dashboard({ jobs }) {
-    const complete  = jobs.filter(j=>j.status==='Complete');
-    const avgHrVar  = parseFloat(avgVariance(jobs,'Hours'));
-    const totalHrs  = complete.reduce((a,j)=>a+j.actHours,0);
-    const totalMat  = complete.reduce((a,j)=>a+j.actMaterials,0);
+    const complete = jobs.filter(j=>j.status==='Complete');
+    const avgHrVar = parseFloat(avgVariance(jobs,'Hours'));
+    const totalHrs = complete.reduce((a,j)=>a+j.actHours,0);
+    const totalMat = complete.reduce((a,j)=>a+j.actMaterials,0);
     return html`
       <div>
         <div style=${S.statRow}>
           ${[
-            {val:complete.length, label:'Completed Jobs'},
+            {val:complete.length,                  label:'Completed Jobs'},
             {val:totalHrs.toLocaleString()+' hrs', label:'Total Labor Hours'},
-            {val:fmtFull(totalMat), label:'Total Materials Cost'},
+            {val:fmtFull(totalMat),                label:'Total Materials Cost'},
             {val:(avgHrVar>0?'+':'')+avgHrVar+'%', label:'Avg Labor Variance', delta:avgHrVar<=0},
           ].map((s,i)=>html`
             <div key=${i} style=${S.stat}>
@@ -801,7 +1057,7 @@
           <div style=${S.card}>
             <div style=${S.cardTitle}>Labor Variance by Job Type</div>
             ${JOB_TYPES.map(type=>{
-              const tj=complete.filter(j=>j.type===type); if(!tj.length)return null;
+              const tj=complete.filter(j=>j.type===type); if(!tj.length) return null;
               const avgV=tj.map(j=>((j.actHours-j.estHours)/j.estHours)*100).reduce((a,b)=>a+b,0)/tj.length;
               const over=avgV>0;
               return html`
@@ -836,15 +1092,13 @@
       </div>`;
   }
 
-  // ── JobsTable ────────────────────────────────────────────────────────────────
+  // ── JobsTable ─────────────────────────────────────────────────────────────────
   function JobsTable({ jobs, onUpdateJob }) {
     const [filter,    setFilter]    = useState('All');
     const [editingId, setEditingId] = useState(null);
-
-    const filtered = filter==='All' ? jobs : jobs.filter(j=>j.type===filter);
-    const miniTag  = { display:'inline-block', padding:'1px 5px', borderRadius:3, fontSize:9, background:'#2A3040', color:'#5A6478', letterSpacing:'0.03em' };
-    const selectSm = { ...S.select, padding:'6px 10px', fontSize:12 };
-
+    const filtered  = filter==='All' ? jobs : jobs.filter(j=>j.type===filter);
+    const miniTag   = { display:'inline-block', padding:'1px 5px', borderRadius:3, fontSize:9, background:'#2A3040', color:'#5A6478' };
+    const selectSm  = { ...S.select, padding:'6px 10px', fontSize:12 };
     return html`
       <div>
         <div style=${{display:'flex',gap:8,marginBottom:16,flexWrap:'wrap'}}>
@@ -858,20 +1112,22 @@
                 ${['Job Name','Type','Sqft','Est. Hrs','Act. Hrs','Labor Var.','Est. Mat.','Act. Mat.','Status',''].map(h=>html`<th key=${h} style=${S.th}>${h}</th>`)}
               </tr></thead>
               <tbody>
-                ${filtered.map(j => {
-                  const hrV  = parseFloat(variance(j.estHours, j.actHours)), over = hrV > 0;
-                  const open = editingId === j.id;
+                ${filtered.map(j=>{
+                  const hrV=parseFloat(variance(j.estHours,j.actHours)), over=hrV>0;
+                  const open=editingId===j.id;
                   return [
                     html`<tr key=${j.id}>
-                      <td style=${{...S.td, color:'#E8E4DC', fontWeight:500, minWidth:180}}>
+                      <td style=${{...S.td,color:'#E8E4DC',fontWeight:500,minWidth:180}}>
                         <div>${j.name}</div>
-                        ${(j.finishLevel||j.demoScope) && html`
+                        ${(j.finishLevel||j.demoScope||j.homeAge||j.materialStorage||j.siteAccess) && html`
                           <div style=${{display:'flex',flexWrap:'wrap',gap:3,marginTop:5}}>
-                            ${j.finishLevel!=null && html`<span style=${miniTag}>${j.finishLevel}</span>`}
-                            ${j.demoScope!=null   && html`<span style=${miniTag}>${j.demoScope}</span>`}
-                            ${j.homeAge!=null     && html`<span style=${miniTag}>${j.homeAge.startsWith('Modern')?'Modern':'Pre-1980'}</span>`}
-                            ${j.layoutChange===true && html`<span style=${miniTag}>Layout Chg</span>`}
-                            ${j.cabinetType!=null && html`<span style=${miniTag}>${j.cabinetType}</span>`}
+                            ${j.finishLevel     != null && html`<span style=${miniTag}>${j.finishLevel}</span>`}
+                            ${j.demoScope       != null && html`<span style=${miniTag}>${j.demoScope}</span>`}
+                            ${j.homeAge         != null && html`<span style=${miniTag}>${homeAgeShort(j.homeAge)}</span>`}
+                            ${j.layoutChange    === true && html`<span style=${miniTag}>Layout Chg</span>`}
+                            ${j.cabinetType     != null && html`<span style=${miniTag}>${j.cabinetType}</span>`}
+                            ${j.materialStorage != null && html`<span style=${miniTag}>${j.materialStorage}</span>`}
+                            ${j.siteAccess      != null && html`<span style=${miniTag}>${j.siteAccess}</span>`}
                           </div>`}
                       </td>
                       <td style=${S.td}><span style=${S.badge(j.type)}>${j.type}</span></td>
@@ -889,12 +1145,12 @@
                         </button>
                       </td>
                     </tr>`,
-                    open && html`<tr key=${'edit-'+j.id}>
-                      <td colSpan=${10} style=${{...S.td, background:'#1A2028', padding:'14px 16px'}}>
+                    open && html`<tr key=${'e-'+j.id}>
+                      <td colSpan=${10} style=${{...S.td,background:'#1A2028',padding:'14px 16px'}}>
                         <div style=${{fontSize:11,color:'#5A6478',letterSpacing:'0.08em',textTransform:'uppercase',marginBottom:10,fontWeight:600}}>Edit Qualifiers</div>
                         <div style=${{display:'flex',flexWrap:'wrap',gap:12,alignItems:'flex-end'}}>
                           ${['finishLevel','demoScope','homeAge'].map(f=>html`
-                            <div key=${f} style=${{minWidth:140}}>
+                            <div key=${f} style=${{minWidth:160}}>
                               <label style=${S.label}>${QUAL_LABELS[f]}</label>
                               <select style=${selectSm} value=${j[f]||''} onChange=${e=>onUpdateJob(j.id,{[f]:e.target.value||null})}>
                                 <option value="">—</option>
@@ -903,14 +1159,21 @@
                             </div>`)}
                           <div style=${{minWidth:140}}>
                             <label style=${S.label}>Layout Change</label>
-                            <select style=${selectSm}
-                              value=${j.layoutChange==null?'':String(j.layoutChange)}
+                            <select style=${selectSm} value=${j.layoutChange==null?'':String(j.layoutChange)}
                               onChange=${e=>onUpdateJob(j.id,{layoutChange:e.target.value===''?null:e.target.value==='true'})}>
                               <option value="">—</option>
                               <option value="true">Yes</option>
                               <option value="false">No</option>
                             </select>
                           </div>
+                          ${['materialStorage','siteAccess'].map(f=>html`
+                            <div key=${f} style=${{minWidth:140}}>
+                              <label style=${S.label}>${QUAL_LABELS[f]}</label>
+                              <select style=${selectSm} value=${j[f]||''} onChange=${e=>onUpdateJob(j.id,{[f]:e.target.value||null})}>
+                                <option value="">—</option>
+                                ${QUALIFIER_OPTIONS[f].map(v=>html`<option key=${v} value=${v}>${v}</option>`)}
+                              </select>
+                            </div>`)}
                           ${j.type==='Kitchen Remodel' && html`
                             <div style=${{minWidth:140}}>
                               <label style=${S.label}>Cabinet Type</label>
@@ -931,23 +1194,45 @@
       </div>`;
   }
 
-  // ── App ──────────────────────────────────────────────────────────────────────
+  // ── App ───────────────────────────────────────────────────────────────────────
+  function routeFromHash() {
+    const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
+    if (parts[0] === 'projects' && parts[1]) {
+      try { return { view:'project', projectId:decodeURIComponent(parts[1]) }; }
+      catch (_) { return { view:'projects', projectId:null }; }
+    }
+    return { view:['projects','dashboard','jobs'].includes(parts[0]) ? parts[0] : 'projects', projectId:null };
+  }
+
   function App() {
+    const initialRoute = useRef(routeFromHash()).current;
     const [jobs,      setJobs]      = useState(SAMPLE_JOBS);
-    const [view,      setView]      = useState('projects');
-    const [projectId, setProjectId] = useState(null);
+    const [view,      setView]      = useState(initialRoute.view);
+    const [projectId, setProjectId] = useState(initialRoute.projectId);
+    const updateJob   = (id, changes) => setJobs(prev => prev.map(j => j.id===id ? {...j,...changes} : j));
+    const navigate = (nextView, nextProjectId=null) => {
+      setView(nextView);
+      setProjectId(nextProjectId);
+      location.hash = nextView === 'project' ? `/projects/${encodeURIComponent(nextProjectId)}` : `/${nextView}`;
+    };
+    const openProject = p => navigate('project', p.projectId);
+    const backToList  = () => navigate('projects');
 
-    const updateJob  = (id, changes) => setJobs(prev => prev.map(j => j.id===id ? {...j,...changes} : j));
-    const openProject = p => { setProjectId(p.projectId); setView('project'); };
-    const backToList  = () => { setProjectId(null); setView('projects'); };
-
+    useEffect(() => {
+      const syncRoute = () => {
+        const route = routeFromHash();
+        setView(route.view);
+        setProjectId(route.projectId);
+      };
+      window.addEventListener('hashchange', syncRoute);
+      return () => window.removeEventListener('hashchange', syncRoute);
+    }, []);
     const navItems = [
       { id:'projects',  label:'Projects',    icon:'projects' },
       { id:'dashboard', label:'Dashboard',   icon:'dashboard' },
       { id:'jobs',      label:'Job History', icon:'jobs' },
     ];
-    const titles = { projects:'Projects', project:'Project', dashboard:'Overview', jobs:'Job History' };
-
+    const titles = { projects:'Projects', dashboard:'Overview', jobs:'Job History' };
     return html`
       <div style=${S.app}>
         <div style=${S.sidebar}>
@@ -958,7 +1243,7 @@
           <div style=${S.navSection}>Navigation</div>
           ${navItems.map(item=>html`
             <div key=${item.id} style=${S.navItem(view===item.id||(item.id==='projects'&&view==='project'))}
-              onClick=${()=>{ if(item.id==='projects'){backToList();}else{setView(item.id);} }}>
+              onClick=${()=>{ if(item.id==='projects'){backToList();}else{navigate(item.id);} }}>
               <${Icon} name=${item.icon} size=${15} color=${view===item.id||(item.id==='projects'&&view==='project')?'#D4822A':'#4A5568'} />
               ${item.label}
             </div>`)}
@@ -971,7 +1256,6 @@
             </div>
           </div>
         </div>
-
         <div style=${S.main}>
           <div style=${S.topbar}>
             <div style=${S.pageTitle}>${view==='project'?'':titles[view]}</div>

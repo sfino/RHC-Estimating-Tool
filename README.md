@@ -1,10 +1,13 @@
 # RHC Estimating Tool
 
+**Current version: v0.1.1**
+
 A field estimating web app for contractors. Upload job drawings, extract material lists with AI vision, and generate labor/materials estimates calibrated against your own historical job data.
 
 ## Features
 
 - **Drawing Reader** — Upload a photo or PDF of a handwritten drawing. Claude extracts every material, product code, quantity, and spec into an editable table. Saves to the project automatically.
+- **Persistent Drawing Workspace** — Uploaded drawings are stored privately in S3. Refreshing restores the open project, drawing viewer, notes, and full material table.
 - **AI Estimates** — Enter job type, square footage, and qualifiers. The tool filters your job history to find comparable jobs, then uses Claude to produce a labor + materials estimate with a confidence range.
 - **Qualifier Matching** — Tag every job with finish level, demo scope, layout change, home age, and cabinet type (kitchens). Estimates only compare against jobs with matching qualifiers so you're not averaging a budget cosmetic refresh against a high-end full gut.
 - **Job History** — View all historical jobs with inline tag editing. Tag changes propagate immediately to the estimator's comp pool.
@@ -16,7 +19,8 @@ A field estimating web app for contractors. Upload job drawings, extract materia
 |-------|-----------|
 | Frontend | React 18 (ESM CDN), HTM, inline styles — single `index.html`, no build step |
 | Backend | AWS Lambda (Python 3.12), API Gateway HTTP API |
-| Database | DynamoDB (pay-per-request) |
+| Database | DynamoDB (project metadata and extracted material lists) |
+| Drawing storage | Private S3 bucket with temporary signed read URLs |
 | AI | Anthropic Claude (`claude-sonnet-4-6`) |
 | Infrastructure | AWS SAM |
 
@@ -30,6 +34,7 @@ fieldquote/
 │   └── handler.py       # Lambda handler — routing, Claude API calls, DynamoDB CRUD
 ├── template.yaml        # SAM template
 ├── samconfig.toml       # SAM deploy config
+├── CHANGELOG.md         # Release history
 └── CLAUDE.md            # AI session context (loaded automatically by Claude Code)
 ```
 
@@ -43,24 +48,21 @@ fieldquote/
 ### Deploy backend
 
 ```bash
-sam build && sam deploy
+export ANTHROPIC_API_KEY="sk-ant-YOUR-KEY"
+sam build
+sam deploy --parameter-overrides "AnthropicApiKey=${ANTHROPIC_API_KEY}"
 ```
 
 This creates:
 - Lambda function `fieldquote-api`
 - API Gateway HTTP API
 - DynamoDB table
-- S3 bucket for the frontend
+- Public S3 bucket for the frontend
+- Private S3 bucket for uploaded drawings
 
 After deploy, note the `ApiUrl` and `BucketName` outputs.
 
-### Set the Anthropic API key
-
-```bash
-aws lambda update-function-configuration \
-  --function-name fieldquote-api \
-  --environment "Variables={ANTHROPIC_API_KEY=sk-ant-YOUR_KEY,PROJECTS_TABLE=fieldquote-projects-fieldquote}"
-```
+CloudFormation treats `AnthropicApiKey` as a `NoEcho` parameter. Supply it from your shell environment and never commit it to `samconfig.toml`.
 
 ### Deploy frontend
 
@@ -71,6 +73,10 @@ aws s3 cp frontend/index.html s3://YOUR_BUCKET_NAME/index.html
 ```
 
 Open the `FrontendUrl` output from the SAM deploy in a browser.
+
+### Drawing persistence
+
+New drawing uploads are stored in the private drawings bucket and returned through one-hour signed URLs. Drawing records created before v0.1.1 still restore their extracted material tables, but their original images cannot be recovered because earlier versions did not upload those files.
 
 ## Qualifier fields
 

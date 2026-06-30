@@ -2,6 +2,12 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: FieldQuote – Contractor Estimating Tool
 
+Parameters:
+  AnthropicApiKey:
+    Type: String
+    NoEcho: true
+    Description: Anthropic API key used by the drawing and estimate Lambda routes
+
 Globals:
   Function:
     Timeout: 60
@@ -22,6 +28,15 @@ Resources:
       KeySchema:
         - AttributeName: projectId
           KeyType: HASH
+
+  DrawingsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
 
   # ── S3 static site ────────────────────────────────────────────────────────────
   FrontendBucket:
@@ -68,11 +83,13 @@ Resources:
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref ProjectsTable
+        - S3CrudPolicy:
+            BucketName: !Ref DrawingsBucket
       Environment:
         Variables:
-          # Set the real key via AWS Console or `aws lambda update-function-configuration` — never commit a real key here
-          ANTHROPIC_API_KEY: placeholder
+          ANTHROPIC_API_KEY: !Ref AnthropicApiKey
           PROJECTS_TABLE: !Ref ProjectsTable
+          DRAWINGS_BUCKET: !Ref DrawingsBucket
       Events:
         ReadDrawing:
           Type: HttpApi
@@ -129,3 +146,7 @@ Outputs:
   BucketName:
     Description: S3 bucket name
     Value: !Ref FrontendBucket
+
+  DrawingsBucketName:
+    Description: Private bucket containing uploaded project drawings
+    Value: !Ref DrawingsBucket
